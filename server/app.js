@@ -1,12 +1,14 @@
 const express = require('express'); //helps with output data to html
 const morgan = require('morgan'); // just print out some time in ms in terminal
 const mongoose = require('mongoose');
-const Products = require('./models/modelProduct.js')
+const Products = require('./models/modelProduct.js');
+const Orders = require('./models/modelOrders.js');
 const array = require('./models/arrayProducts.js');
-const cors = require('cors')
+const dayjs = require('dayjs');
+const {calculateDeliveryDate, getDeliveryOptionOb} = require('./utils/utils.js');
+const cors = require('cors');
 
 const app = express();
-console.log(array);
 
 const dbURL = "mongodb+srv://admin:admin123@cluster0.cgq3qeb.mongodb.net/AmazonDataBase?retryWrites=true&w=majority&appName=Cluster0"
 // mongoose.connect(dbURL,{useNewUrlParser: true, useUnifiedTopology: true})
@@ -32,15 +34,13 @@ mongoose.connect(dbURL,{useNewUrlParser: true, useUnifiedTopology: true}).then((
 
 app.use(morgan('dev'));
 app.set('view engine', 'ejs');
-app.use(cors({
-    origin: 'http://127.0.0.1:3001',
-    methods: ['GET','POST','DELETE','PUT'],
-}));
-
+app.use(cors());
+app.use(express.json());
 
 
 
 sendProducts();
+
 
 
 
@@ -66,5 +66,52 @@ function sendProducts(){
 
 }
 
+
+app.post('/send-products',(req,res)=>{
+  console.log(`send-products: ${req.body}`);
+})
+
+
+
+app.post('/send-order', async (req, res) => {
+    const order = req.body;
+    const today = dayjs();
+    let totalPrice = 0;
+    let prodObiects = [];
+    // const deliveryObiect = getDeliveryOptionOb(order.body.deliveryOptionId);
+    // const estimatedDeliveryTime = calculateDeliveryDate(deliveryObiect) 
+
+    //this is like for all products
+    for(const item of order.body){
+
+        const deliveryId = getDeliveryOptionOb(item.deliveryOptionId);
+        const estimatedDelivery = calculateDeliveryDate(deliveryId);
+        const productData = await Products.findOne({id: item.productId});
+
+        const extra = {
+            productId: productData.id,
+            quantity: item.quantity,
+            estimatedDeliveryTime: estimatedDelivery,
+            variation: item.variation || null
+        }
+        totalPrice += productData.priceCents;
+        prodObiects.push(extra);
+
+    }
+
+
+    
+
+        const nOrder = new Orders({
+            orderTime: today.toISOString(),
+            totalCostCents: totalPrice,
+            products: prodObiects
+        });
+
+        await nOrder.save();
+
+        res.status(201).json({messege: 'the order saved!'})
+    
+});
 
 

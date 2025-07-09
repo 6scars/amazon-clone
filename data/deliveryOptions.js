@@ -28,20 +28,19 @@ export function getDeliveryOptionOb(cartDeliveryOptionId){
 
 }
 
-export function calculateDeliveryDate(option){
-    const today = dayjs();
-    const deliveryDate = today.add(9, 'days');
-    const FSS = [7,6,5];
-    const index = FSS.findIndex(el => el === deliveryDate.day());
-    
+export function calculateDeliveryDate(option) {
+  const today = dayjs();
+  let deliveryDate = today.add(option.deliveryDays, 'days');
 
-    if(index !== -1){
-        return deliveryDate.add(index+1, 'days')
-    }
+  // Jeśli dostawa wypada w piątek (5), sobotę (6) lub niedzielę (0)
+  if ([5, 6, 0].includes(deliveryDate.day())) {
+    // Oblicz, ile dni do poniedziałku (1)
+    const daysToMonday = (8 - deliveryDate.day()) % 7;
+    deliveryDate = deliveryDate.add(daysToMonday, 'days');
+  }
 
-    
-    return deliveryDate;
-
+  return deliveryDate;
 }
+
 
 

@@ -2,7 +2,7 @@ import {orders} from  '../../data/orders.js';
 import {formatCurrency} from '../utils/money.js'
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {loopCartProd as loopOrderProd} from '../../data/products.js'
-
+console.log(orders);
 export function loadOrdersSummary(){
     let wholeHTML = '';
     orders.forEach((order)=>{
