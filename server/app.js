@@ -74,6 +74,9 @@ app.post('/send-products',(req,res)=>{
 
 
 app.post('/send-order', async (req, res) => {
+    try{
+
+    
     const order = req.body;
     const today = dayjs();
     let totalPrice = 0;
@@ -108,9 +111,11 @@ app.post('/send-order', async (req, res) => {
             products: prodObiects
         });
 
-        await nOrder.save();
-
-        res.status(201).json({messege: 'the order saved!'})
+        // await nOrder.save();
+        res.json(nOrder);
+    }catch(error){
+        console.log('app.js post /send-order',error);
+    }
     
 });
 

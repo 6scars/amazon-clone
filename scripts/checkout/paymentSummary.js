@@ -69,17 +69,17 @@ export function renderPaymentSummary(){
     document.querySelector('.js-place-order')
       .addEventListener('click',async ()=>{
         try{
-          const response = await fetch('https://supersimplebackend.dev/orders',{
+          const response = await fetch('http://localhost:3000/send-order',{
             method: 'POST',
             headers:{
               'Content-Type':'application/json'
             },
             body: JSON.stringify({
-              cart: cart.cartItems
+              body: cart.cartItems
             })
           });
           const order = await response.json();
-          
+          console.log(order);
           addOrder(order);
           window.location.href = 'orders.html';
         }catch(error){

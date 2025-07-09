@@ -25,7 +25,7 @@ export function loadOrdersSummary(){
                             
                             <div class="order-header-right-section">
                                 <div class="order-header-label">Order ID:</div>
-                                    <div>${order.id}</div>
+                                    <div>${order._id}</div>
                                 </div>
                             </div>
                         ${details(order)}
