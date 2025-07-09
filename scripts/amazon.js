@@ -13,11 +13,15 @@ new Promise(()=>{
   })
 })
 
+
+
+
+
 export function loadProductsGrid(){
   let url = new URL(window.location.href);
   const searchParams = url.searchParams.get('search');
   const searchedItems =searchParams ? searchedProducts(searchParams) : products;
-  console.log(searchParams);
+  console.log(searchedItems);
   
   let productsHtml = '';
   let timeoutId;
@@ -118,10 +122,4 @@ export function loadProductsGrid(){
   document.querySelector('.products-grid').innerHTML = productsHtml;
   updateCartQuantityHeader();
   addEventToButtons();
-
-
-  // if(searchedItems.length === 0){
-  //   console.log('empty dd')
-  // }
-
 }

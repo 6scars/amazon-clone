@@ -13,8 +13,13 @@ export function searchBar(){
 
 
 export function searchedProducts(word){
-    const finded = products.filter(item=>{
+    const finded =  products.filter(item=>{
         return item.name.toLowerCase().includes(word.toLowerCase());
     })
-    return finded;
+    const finded2= products.filter(item=>{
+        return item.keywords.some(key=>{return key.toLowerCase().includes(word.toLowerCase());})
+    })
+
+    const combined = [...new Set([...finded, ...finded2])];
+    return combined;
 }
