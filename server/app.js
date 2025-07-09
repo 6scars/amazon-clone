@@ -87,8 +87,9 @@ app.post('/send-order', async (req, res) => {
     //this is like for all products
     for(const item of order.body){
 
-        const deliveryId = getDeliveryOptionOb(item.deliveryOptionId);
-        const estimatedDelivery = calculateDeliveryDate(deliveryId);
+        const deliveryOb = getDeliveryOptionOb(item.deliveryOptionId);
+        console.log(deliveryOb);
+        const estimatedDelivery = calculateDeliveryDate(deliveryOb);
         const productData = await Products.findOne({id: item.productId});
 
         const extra = {
@@ -97,7 +98,7 @@ app.post('/send-order', async (req, res) => {
             estimatedDeliveryTime: estimatedDelivery,
             variation: item.variation || null
         }
-        totalPrice += productData.priceCents;
+        totalPrice += (productData.priceCents * item.quantity) +deliveryOb.priceCents;
         prodObiects.push(extra);
 
     }
