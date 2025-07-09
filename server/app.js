@@ -80,6 +80,7 @@ app.post('/send-order', async (req, res) => {
     const order = req.body;
     const today = dayjs();
     let totalPrice = 0;
+    const tax = 1.10;
     let prodObiects = [];
     // const deliveryObiect = getDeliveryOptionOb(order.body.deliveryOptionId);
     // const estimatedDeliveryTime = calculateDeliveryDate(deliveryObiect) 
@@ -98,7 +99,7 @@ app.post('/send-order', async (req, res) => {
             estimatedDeliveryTime: estimatedDelivery,
             variation: item.variation || null
         }
-        totalPrice += (productData.priceCents * item.quantity) +deliveryOb.priceCents;
+        totalPrice += ((productData.priceCents * item.quantity) +deliveryOb.priceCents)*tax;
         prodObiects.push(extra);
 
     }
