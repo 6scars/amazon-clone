@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input id="username" placeholder="username">
+    <input id="password" placeholder="password">
+    <button onclick="login()"> log in </button>
+    <button onclick="logout()"> log out </button>
+    <button onclick="x()">test</button>
+        <div class="js-loged-in" style="margin-bottom: 20px;"></div>
+
+
+
+    <input id="Rusername" placeholder="Rusername">
+    <input id="Rpassword" placeholder="Rpassword">
+    <input id="Remail" placeholder="Rpassword">
+    <button onclick="register()"> rejestracja </button>
+
+
+
+
+    <script type="module">
+       window.login = async function login(){
+
+            console.log('aaa')
+            const res = await fetch('http://localhost:3000/login',{
+                method: "POST",
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value,
+                })
+            });
+
+
+            const data = await res.json();
+            console.log('Token:',data);
+            if(res.status <400){
+                document.querySelector('.js-loged-in').innerHTML = 'loged in';
+            }
+            localStorage.setItem('jwt',data.token);
+
+
+        }
+
+
+        window.logout = function logout(){
+            localStorage.removeItem('jwt');
+            document.querySelector('.js-loged-in').innerHTML = 'loged out'
+            alert('you have been loged out');
+            
+        }
+        
+
+        window.x = async function x(){
+            const res = await fetch('http://localhost:3000/profile',{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                }
+            })
+
+
+            const message = await res.json()
+            if(res.status < 400){
+                document.querySelector('.js-loged-in').innerHTML = 'loged in';
+            }else{
+                document.querySelector('.js-loged-in').innerHTML = 'loged out'
+            }
+            console.log(message);
+        }
+        x();
+
+
+
+
+
+
+
+
+        window.register = async function register(){
+            const Rusername = document.getElementById('Rusername').value;
+            const Rpassword = document.getElementById('Rpassword').value;
+            const Remail = document.getElementById('Remail').value;
+            const respond = await fetch('http://localhost:3000/register',{
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                    Rusername,
+                    Rpassword,
+                    Remail
+                })
+
+                
+            })
+
+            console.log(respond.status);
+
+        }
+    </script>
+</body>
+</html>
