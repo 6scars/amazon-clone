@@ -1,7 +1,8 @@
 require('dotenv').config(); 
 const express = require('express'); //helps with output data to html
 const morgan = require('morgan'); // just print out some time in ms in terminal
-const crypto = require('crypto');
+const bcrypt =require('bcrypt');
+
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const Products = require('./models/modelProduct.js');
@@ -137,22 +138,26 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 console.log("JWT_SECRET", process.env.JWT_SECRET);
 
-app.post('/login',(req,res)=>{
-    console.log(req.body);
-
-    const user = users.find((u)=>{
-        return u.username === req.body.username && u.password === req.body.password
-    }
-    );
-
+app.post('/login',async (req,res)=>{
+    const user = await Users.findOne({
+            username:req.body.username,
+            email: req.body.email,
+        });
+            console.log(req.body);
     if(!user)
-        return res.status(401).json({message:'Błędne dane logowania'})
+        return res.status(401).json({message:'Inputed not correct data, try again'})
+
+
+    const passwordMatch = bcrypt.compare(req.body.password, user.password);
+
+
+
     console.log(user);
+    if(!passwordMatch)
+        return res.status(401).json({message: 'error'})
+
     const token = jwt.sign({userId: user.id}, JWT_SECRET, {expiresIn: '1m'});
-
     res.json({token});
-
-
 
 })
 
@@ -188,9 +193,9 @@ app.get('/profile', authenticateToken, (req,res)=>{
 /* REGISTER */
 
 
-app.post('/register',(req,res)=>{
+app.post('/register',async (req,res)=>{
     const Rusername = req.body.Rusername;
-    const Rpassword = req.body.Rpassword;
+    const Rpassword = await bcrypt.hash(req.body.Rpassword,10);
     const Remail= req.body.Remail;
 
     const user = new Users({
@@ -198,7 +203,7 @@ app.post('/register',(req,res)=>{
         password: Rpassword,
         email: Remail,
     });
-    user.save();
+    await user.save();
     console.log(req);
     return res.status(200).json({message:'registering...'})
 })

@@ -9,6 +9,7 @@
 
     <input id="username" placeholder="username">
     <input id="password" placeholder="password">
+    <input id="email" placeholder="email">
     <button onclick="login()"> log in </button>
     <button onclick="logout()"> log out </button>
     <button onclick="x()">test</button>
@@ -18,7 +19,7 @@
 
     <input id="Rusername" placeholder="Rusername">
     <input id="Rpassword" placeholder="Rpassword">
-    <input id="Remail" placeholder="Rpassword">
+    <input id="Remail" placeholder="Remail">
     <button onclick="register()"> rejestracja </button>
 
 
@@ -36,6 +37,7 @@
                 body: JSON.stringify({
                     username: document.getElementById('username').value,
                     password: document.getElementById('password').value,
+                    email: document.getElementById('email').value,
                 })
             });
 
