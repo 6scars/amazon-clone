@@ -25,7 +25,7 @@
   }
 }
 
-.header-link {
+.header-link{
   display: inline-block;
   padding: 6px;
   border-radius: 2px;
@@ -97,7 +97,7 @@
 }
 
 .amazon-header-right-section {
-  width: 180px;
+  width: 220px;
   flex-shrink: 0;
   display: flex;
   justify-content: end;
@@ -117,6 +117,7 @@
   font-size: 15px;
   font-weight: 700;
 }
+
 
 .cart-link {
   color: white;
@@ -146,4 +147,13 @@
   
   width: 26px;
   text-align: center;
+}
+
+
+
+.your-account{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  font-weight: 700;
 }
