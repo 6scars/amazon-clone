@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(78, 76, 76);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.account-informations {
+  width: 50vh;
+  max-width: 500px; /* ← dwa razy większy */
+  min-width:200px;
+  
+  height:50vh;
+  min-height: 250px;
+  max-height:800px;
+  border-radius: 20px;
+  border: 1px solid white;
+  box-shadow: 5px 5px 200px black;
+
+  background-color: rgb(192, 192, 190);
+  padding: 40px 30px;
+  box-sizing:border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.top-informations{
+    display:flex;
+}
+
+.mid-informations{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+
+.login-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+}
+
+.input-account {
+  width: 100%;
+  height: 40px;
+  padding: 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: inset 0px 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.108);
+  transition: border 0.2s;
+}
+
+.input-account:focus {
+  outline: none;
+  border-color: #0073e6;
+}
+
+.button-login-div{
+    display:flex;
+    justify-content:center;
+}
+.button-login {
+  background-color: #febd69;
+  border: none;
+  border-radius: 8px;
+  height: 40px;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-login:hover {
+  background-color: #f3a847;
+}
+
+
