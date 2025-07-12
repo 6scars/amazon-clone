@@ -4,14 +4,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(78, 76, 76);
+
+    background: radial-gradient(
+    circle at center,
+    #333333 0%,
+    #000000 80%
+  );
+
   padding: 20px;
   box-sizing: border-box;
 }
 
 .account-informations {
   width: 50vh;
-  max-width: 500px; /* ← dwa razy większy */
+  max-width: 500px;
   min-width:200px;
   
   height:50vh;
@@ -21,7 +27,8 @@ body {
   border: 1px solid white;
   box-shadow: 5px 5px 200px black;
 
-  background-color: rgb(192, 192, 190);
+
+  background-color: rgb(255, 254, 254);
   padding: 40px 30px;
   box-sizing:border-box;
 
