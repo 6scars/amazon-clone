@@ -1,14 +1,26 @@
-body {
+.hidden{
+  display:none;
+}
+
+.loginWindow {
+  position:fixed;
+  top: 0;
+  left: 0;
+  
   margin: 0;
   height: 100vh;
+  width:100vw;
   display: flex;
   justify-content: center;
   align-items: center;
 
+
+  backdrop-filter:blur(10px);
+
     background: radial-gradient(
     circle at center,
-    #333333 0%,
-    #000000 80%
+    #3333333a 0%,
+    #00000027 80%
   );
 
   padding: 20px;
@@ -51,7 +63,8 @@ body {
 }
 
 
-.login-text {
+.login-text-header,
+.register-text-header {
   font-size: 24px;
   font-weight: bold;
   color: #111;
@@ -93,4 +106,15 @@ body {
   background-color: #f3a847;
 }
 
-
+.register-text h4,
+.login-text h4{
+  display:inline;
+}
+.register-text h4:hover,
+.login-text h4:hover{
+  display:inline;
+  text-decoration: underline;
+  color:blue;
+  font-weight:700;
+  cursor:pointer;
+}

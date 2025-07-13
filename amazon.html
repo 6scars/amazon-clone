@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="styles/shared/general.css">
     <link rel="stylesheet" href="styles/shared/amazon-header.css">
     <link rel="stylesheet" href="styles/pages/amazon.css">
+    <link rel="stylesheet" href="styles/pages/account.css">
   </head>
   <body>
     <div class="amazon-header">
@@ -38,8 +39,8 @@
       </div>
 
       <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href= "account.html">
-           <span class="your-account">Your Account </span>
+        <a class="orders-link header-link">
+           <span class="your-account js-your-account">Your Account </span>
         </a>
 
         <a class="orders-link header-link" href="orders.html">
@@ -60,6 +61,9 @@
 
       </div>
     </div>
+
+    <div class="js-login-window"></div>
     <script type="module" src="scripts/amazon.js"></script>
+    <script type="module" src="./scripts/logingWindow/account.js"></script>
   </body>
 </html>

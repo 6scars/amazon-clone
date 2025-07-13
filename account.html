@@ -16,10 +16,11 @@
     <!-- Here are the CSS files for this page. -->
     <link rel="stylesheet" href="styles/shared/general.css">
     <link rel="stylesheet" href="styles/shared/amazon-header.css">
+    <link rel="stylesheet" href="styles/pages/amazon.css">
     <link rel="stylesheet" href="styles/pages/account.css">
   </head>
   <body>
-    <div class="amazon-header">
+        <div class="amazon-header">
       <div class="amazon-header-left-section">
         <a href="amazon.html" class="header-link">
           <img class="amazon-logo"
@@ -38,8 +39,8 @@
       </div>
 
       <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href= "account.html">
-           <span class="your-account">Your Account </span>
+        <a class="orders-link header-link">
+           <span class="your-account js-your-account">Your Account </span>
         </a>
 
         <a class="orders-link header-link" href="orders.html">
@@ -54,36 +55,14 @@
         </a>
       </div>
     </div>
-    
-    <div class="main">
 
-        <div class="account-informations js-account-informations">
-            <div class="top-informations">
-                <div class="login-text">LOG IN</div>
-            </div>
-            
-            <div class="mid-informations">
-                <div class="login-text-input">
-                    <input class="input-account "type="text" placeholder="login">
-                </div>
-                <div class="password-text-input">
-                    <input class="input-account" type="text" placeholder="password">
-                </div>
+      <div style="margin-top:60px;" class="Main">
+        <div class="informations">
+            <div class="username">username</div>
+            <div class="email">email</div>
 
-                <div class="button-login-div">
-                    <button class="button-login">LOG IN!</button>
-                </div>
-
-            </div>
-
-
-
-            <div class ="foot-informations">
-                <div class="register-text">Register</div>
-            </div>
         </div>
-
-    </div>
-
+      </div>
+    
   </body>
 </html>

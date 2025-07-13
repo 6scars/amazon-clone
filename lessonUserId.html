@@ -4,27 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./styles/pages/account.css"></link>
 </head>
 <body>
-
-    <input id="username" placeholder="username">
-    <input id="password" placeholder="password">
-    <input id="email" placeholder="email">
-    <button onclick="login()"> log in </button>
-    <button onclick="logout()"> log out </button>
-    <button onclick="x()">test</button>
-        <div class="js-loged-in" style="margin-bottom: 20px;"></div>
+    <div class="full">
 
 
-
-    <input id="Rusername" placeholder="Rusername">
-    <input id="Rpassword" placeholder="Rpassword">
-    <input id="Remail" placeholder="Remail">
-    <button onclick="register()"> rejestracja </button>
+        <input id="username" placeholder="username">
+        <input id="password" placeholder="password">
+        <input id="email" placeholder="email">
+        <button onclick="login()"> log in </button>
+        <button onclick="logout()"> log out </button>
+        <button onclick="x()">test</button>
+            <div class="js-loged-in" style="margin-bottom: 20px;"></div>
 
 
 
+        <input id="Rusername" placeholder="Rusername">
+        <input id="Rpassword" placeholder="Rpassword">
+        <input id="Remail" placeholder="Remail">
+        <button onclick="register()"> rejestracja </button>
 
+        <button class="js-login-window-button" >loginWindow</button>
+    </div>
+
+    <div class="wind"></div>
+
+    <script type="module" src="./scripts/logingWindow/account.js"></script>
     <script type="module">
        window.login = async function login(){
 
@@ -110,5 +116,8 @@
 
         }
     </script>
+
+
+
 </body>
 </html>

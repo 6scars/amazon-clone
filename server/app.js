@@ -143,7 +143,7 @@ app.post('/login',async (req,res)=>{
             username:req.body.username,
             email: req.body.email,
         });
-            console.log(req.body);
+            console.log('req',req.body);
     if(!user)
         return res.status(401).json({message:'Inputed not correct data, try again'})
 
@@ -157,6 +157,7 @@ app.post('/login',async (req,res)=>{
         return res.status(401).json({message: 'error'})
 
     const token = jwt.sign({userId: user.id}, JWT_SECRET, {expiresIn: '1m'});
+    console.log(token);
     res.json({token});
 
 })
@@ -194,6 +195,8 @@ app.get('/profile', authenticateToken, (req,res)=>{
 
 
 app.post('/register',async (req,res)=>{
+
+    console.log(req)
     const Rusername = req.body.Rusername;
     const Rpassword = await bcrypt.hash(req.body.Rpassword,10);
     const Remail= req.body.Remail;
@@ -203,7 +206,7 @@ app.post('/register',async (req,res)=>{
         password: Rpassword,
         email: Remail,
     });
-    await user.save();
+    // await user.save();
     console.log(req);
     return res.status(200).json({message:'registering...'})
 })
