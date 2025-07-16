@@ -34,12 +34,18 @@
 .dark-screen{
     display:none;
     position:fixed;
-    background:rgba(0, 0, 0, 0.392);
+
+    background-color:rgba(0, 0, 0, 0.334);
+
     left:0;
     bottom:0;
     right:0;
     top:60px;
     z-index:0;
+}
+
+.dark-screen.visible{
+  display:block;
 }
 
 

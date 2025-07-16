@@ -30,6 +30,160 @@
 
     <div class="wind"></div>
 
+
+
+
+    <style>    
+
+        .your-account-dropdown{
+            display:block;
+        }
+
+        .your-account-dropdown{
+            /* display:none; */
+            border-radius:3px;
+            box-shadow:0 0 7px rgba(0, 0, 0, 0.765);
+            background-color:rgb(255, 255, 255);
+            width:500px;
+            height:350px;
+            padding:0 0 15px 0;
+            font-size:14px;
+            
+        }
+
+        .sing-in-con{
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            height:25%;
+            width:100%;
+        }
+
+        .sing-in-con span{
+            padding:10px;
+            font-size:12px;
+        }
+        .sing-in-con a {
+            text-decoration:underline;
+            color:rgb(49, 49, 255);
+        }
+
+        .sing-in-con a:hover {
+            text-decoration:underline;
+            color:rgb(244, 73, 15);
+            cursor:pointer;
+        }
+        .sing-in-button{
+            border:1px solid #FCD200;
+            border-radius:5px;
+            box-shadow:0 0  10px rgba(0, 0, 0, 0.064);
+
+            background-color:#FFD814;
+
+            width:35%;
+            padding:5px 0;
+
+            font-size:12px;
+            font-weight:500;
+        }
+
+        .sing-in-button:hover{
+            text-decoration:underline;
+        }
+
+
+        .your-account-options{
+            height:75%;
+            display:flex;
+            justify-content:space-between;
+            
+        }
+        .your-account-options-1{
+            padding:0 15px;
+            height:100%;
+            flex:1;
+        }
+        .your-account-options-2{
+            padding:0 15px;
+            height:100%;
+            flex:1;
+        }
+        .your-account-dropdown li,
+        .your-account-dropdown ul{
+            list-style:none;
+            padding:0;
+            margin:0;
+
+            color:rgb(92, 89, 89);
+        }
+        .your-account-dropdown .devider-vertical{
+            margin-top:20px;
+            height: 90%;
+            border-right:1px solid rgb(227, 225, 225);
+        }
+        .your-account-dropdown .devider-horizontal{
+            width:90%;
+            height: auto;
+            border-bottom:1px solid rgb(241, 220, 220);
+        }
+        .your-account-dropdown h3{
+            margin-top:20px;
+            margin-bottom:5px;
+        }
+
+
+
+
+    </style>
+
+
+
+
+
+
+    <div class="your-account-dropdown">
+        <div class="sing-in-con">
+            <button class="sing-in-button" >Sing in</button>
+            <span>New customer? <a>Starts here.</a></span>
+            <div class="devider-horizontal"></div>
+        </div>
+        <div class="your-account-options">
+            <div class="your-account-options-1">
+                <div class="your-lists-cont">
+                    <h3>Your Lists</h3>
+                </div>
+                <ul>
+                    <li><span>Create a List</span></li>
+                    <li><span>Find a List or Registry</span></li>
+                </ul>
+
+            </div>
+            
+            <div class="devider-vertical"></div>
+
+            <div class="your-account-options-2">
+                <h3>Your account</h3>
+                    
+                <ul>
+                    <li><a>Account</a></li>
+                    <li><a>Orders</a></li>
+                    <li><a>Recommendations</a></li>
+                    <li><a>Browsing History</a></li>
+                    <li><a>Watchlist</a></li>
+                    <li><a>Video Purchases & Rentals</a></li>
+                    <li><a>Kindle Unlimited</a></li>
+                    <li><a>Content & Devices</a></li>
+                    <li><a>Subscribe & Save items</a></li>
+                    <li><a>Membership & Subscriptions</a></li>
+                    <li><a>Music Library</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    
+
     <script type="module" src="./scripts/logingWindow/account.js"></script>
     <script type="module">
        window.login = async function login(){
