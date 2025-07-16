@@ -171,68 +171,66 @@ function displayHeader(){
 }
 displayHeader();
 
+function EventListenersHeader(){
+  // Declarations //
+  const languageContainer= document.querySelector('.choose-language-container');
+  const darkScreen = document.querySelector('.dark-screen');
+  const dropDownLanguage = document.querySelector('.dropdown');
+
+  const yourAccountContainer = document.querySelector('.your-account');
+  const dropDownYourAccount = document.querySelector('.your-account-dropdown');
+
+  function showLanguageMenu(){
+      darkScreen.classList.add('visible');
+      dropDownLanguage.classList.add('visible');
+  }
+
+  function hideLanguageMenu(){
+      darkScreen.classList.remove('visible');
+      dropDownLanguage.classList.remove('visible');
+  }
 
 
-
-
-const languageContainer= document.querySelector('.choose-language-container');
-const darkScreen = document.querySelector('.dark-screen');
-const dropDownLanguage = document.querySelector('.dropdown');
-let isOverDarkScreen = false;
-let isOverDropDown = false;
-function showLanguageMenu(){
-    darkScreen.classList.add('visible');
-    dropDownLanguage.classList.add('visible');
-}
-
-function hideLanguageMenu(){
-    darkScreen.classList.remove('visible');
-    dropDownLanguage.classList.remove('visible');
-}
-
-function handleLeave(){
-    if(isOverDarkScreen === false && isOverDropDown === false){
-        hideLanguageMenu();
-    }
-}
-
-
-languageContainer.addEventListener('mouseenter',()=>{
-    isOverDarkScreen = true;
-    showLanguageMenu()
-});
-languageContainer.addEventListener('mouseleave',()=>{
-    isOverDarkScreen = false;
-    hideLanguageMenu();
-});
-
-dropDownLanguage.addEventListener('mouseenter',()=>{
-    isOverDropDown = true;
-    showLanguageMenu();
-});
-dropDownLanguage.addEventListener('mouseleave',()=>{
-    isOverDropDown = false;
-    hideLanguageMenu();
-});
-
-
-
-const yourAccountContainer = document.querySelector('.your-account');
-const dropDownYourAccount = document.querySelector('.your-account-dropdown');
-
-function showYourAccountMenu(){
+  function showYourAccountMenu(){
     darkScreen.classList.add('visible');
     dropDownYourAccount.classList.add('visible');
-}
-function hideYourAccountMenu(){
-    darkScreen.classList.remove('visible');
-    dropDownYourAccount.classList.remove('visible');
-}
+  }
+  function hideYourAccountMenu(){
+      darkScreen.classList.remove('visible');
+      dropDownYourAccount.classList.remove('visible');
+  }
 
-yourAccountContainer.addEventListener('mouseenter',()=>{
+  languageContainer.addEventListener('mouseenter',()=>{
+      
+      showLanguageMenu()
+  });
+  languageContainer.addEventListener('mouseleave',()=>{
+      
+      hideLanguageMenu();
+  });
+
+  dropDownLanguage.addEventListener('mouseenter',()=>{
+      
+      showLanguageMenu();
+  });
+  dropDownLanguage.addEventListener('mouseleave',()=>{
+      
+      hideLanguageMenu();
+  });
+
+  yourAccountContainer.addEventListener('mouseenter',()=>{
   showYourAccountMenu();
-})
+  });
 
-yourAccountContainer.addEventListener('mouseleave',()=>{
-  hideYourAccountMenu();
-})
+  yourAccountContainer.addEventListener('mouseleave',()=>{
+    hideYourAccountMenu();
+  });
+}
+EventListenersHeader();
+
+
+
+
+
+
+

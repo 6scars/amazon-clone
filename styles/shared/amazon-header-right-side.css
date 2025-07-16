@@ -87,10 +87,15 @@
     border:1px solid orange;
     box-shadow:0 0 3px orange;
 }
+.dropdown input{
+    cursor:pointer;
+    margin-bottom:2px;
+}
 .dropdown input[type="radio"]:focus{
     border:none;
     box-shadow:none;
     outline:none;
+    
 }
 .dropdown a{
     text-decoration:underline;
@@ -117,7 +122,10 @@
     width:100%;
 }
 .dropdown label{
-    display:block;
+    display:flex;
+    justify-content:start;
+    align-items:center;
+
 }
 
 
