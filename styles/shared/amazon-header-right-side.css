@@ -1,0 +1,176 @@
+/* RIGHT */
+
+.amazon-header-right-section {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: end;
+}
+
+.orders-link {
+  color: white;
+}
+
+.returns-text {
+  display: block;
+  font-size: 13px;
+}
+
+.orders-text {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.choose-language-container{
+    position:relative;
+  display:flex;
+  align-items:end;
+}
+.choose-language-container .language-text{
+  padding:5px;
+  font-weight:700;
+  font-size:14px;
+  padding-right:0;
+
+  position:relative;
+}
+
+.choose-language-container .arrow{
+  padding-bottom:5px;
+}
+.arrow{
+  font-size:8px;
+  color:grey;
+  padding:0;
+}
+.flag{
+  width:19px;
+  height:17px;
+  margin-bottom:5px;
+
+}
+
+
+.choose-language-container:hover .dropdown{
+    display:flex;
+}
+
+.choose-language-container:hover  .dark-screen {
+  display: block;
+}
+
+.dropdown{
+    display:none;
+    position:absolute;
+    top:100%;
+
+    width:200px;
+    height:300px;
+    font-size:12px;
+
+    background:rgb(246, 246, 243);
+    color:rgb(39, 39, 39);
+    padding:15px;
+
+    border-radius:5px;
+
+    justify-content:space-between;
+    flex-direction:column;
+    align-items:start;
+    cursor:auto;
+
+}
+
+.dropdown label{
+    width:100%;
+    border:1px solid transparent;
+}
+.dropdown label:hover{
+    cursor:pointer;
+    border:1px solid orange;
+    box-shadow:0 0 3px orange;
+}
+.dropdown input[type="radio"]:focus{
+    border:none;
+    box-shadow:none;
+    outline:none;
+}
+
+.dropdown a{
+    text-decoration:underline;
+    color:rgb(49, 49, 193);
+}
+.dropdown .change-currency-button{
+    color:rgb(72, 72, 137);
+}
+.dropdown .change-currency-button:hover{
+    cursor:pointer;
+    text-decoration:underline;
+}
+.dropdown a:hover{
+    text-decoration:underline;
+    color:rgb(0, 128, 255);
+    cursor:pointer;
+}
+
+.dropdown-bottom-part{
+    cursor:auto
+}
+
+.devider{
+    border-bottom:1px solid rgb(58, 52, 52);
+    width:100%;
+}
+.dropdown label{
+    display:block;
+}
+
+
+
+.your-account{
+  padding-top:10px;
+  line-height:14px;
+}
+
+.your-account-line-1{
+  display:block;
+  font-size:12px;
+}
+.your-account-line-2{
+
+  font-size:14px;
+  font-weight:700;
+}
+
+
+
+.cart-link {
+  color: white;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.cart-icon {
+  width: 50px;
+}
+
+.cart-text {
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cart-quantity {
+  color: rgb(240, 136, 4);
+  font-size: 16px;
+  font-weight: 700;
+
+  position: absolute;
+  top: 4px;
+  left: 22px;
+  
+  width: 26px;
+  text-align: center;
+}
+

@@ -1,0 +1,79 @@
+/* LEFT */
+.amazon-header-left-section {
+  width:210px;
+  height:60px;
+  display:flex;
+  justify-content:start;
+  align-items:center;
+}
+
+.delivery-to-container{
+  font-size:12px;
+  height:89%;
+  margin-bottom:5px;
+  flex:1;
+  border:1px solid transparent;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.delivery-to-container:hover{
+  border:1px solid white;
+  border-radius:3px;
+}
+.delivery-to-container p{
+  font-size:12px;
+  font-weight:bold;
+}
+.delivery-pointer-logo-container{
+  margin-top:15px;
+  height:auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.nav-line-2{
+  font-weight:700
+}
+
+.nav-lines-container{
+  display:flex;
+  flex-direction:column;
+
+}
+
+.amazon-logo-container{
+  flex:1;
+}
+
+@media (max-width: 800px) {
+  .amazon-header-left-section {
+    width: unset;
+  }
+}
+
+
+
+.amazon-logo {
+  width: 100px;
+  margin-top: 5px;
+}
+
+.amazon-mobile-logo {
+  display: none;
+}
+
+@media (max-width: 575px) {
+  .amazon-logo {
+    display: none;
+  }
+
+  .amazon-mobile-logo {
+    display: block;
+    height: 35px;
+    margin-top: 5px;
+  }
+}
