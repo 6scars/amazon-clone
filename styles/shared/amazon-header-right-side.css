@@ -197,7 +197,7 @@
             color:rgb(244, 73, 15);
             cursor:pointer;
         }
-        .sing-in-button{
+        .singin-button{
             border:1px solid #FCD200;
             border-radius:5px;
             box-shadow:0 0  10px rgba(0, 0, 0, 0.064);
@@ -211,7 +211,7 @@
             font-weight:500;
         }
 
-        .sing-in-button:hover{
+        .singin-button:hover{
             text-decoration:underline;
         }
 

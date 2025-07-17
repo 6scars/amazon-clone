@@ -108,7 +108,7 @@ const headerHTML = `
 
               <div class="your-account-dropdown">
             <div class="sing-in-con">
-                <button class="sing-in-button" >Sing in</button>
+                <button class="singin-button" >Sing in</button>
                 <span>New customer? <a>Starts here.</a></span>
                 <div class="devider-horizontal"></div>
             </div>
@@ -180,6 +180,8 @@ function EventListenersHeader(){
   const yourAccountContainer = document.querySelector('.your-account');
   const dropDownYourAccount = document.querySelector('.your-account-dropdown');
 
+  const singinButton = document.querySelector('.singin-button');
+  /* SHOW HIDE*/
   function showLanguageMenu(){
       darkScreen.classList.add('visible');
       dropDownLanguage.classList.add('visible');
@@ -190,7 +192,6 @@ function EventListenersHeader(){
       dropDownLanguage.classList.remove('visible');
   }
 
-
   function showYourAccountMenu(){
     darkScreen.classList.add('visible');
     dropDownYourAccount.classList.add('visible');
@@ -199,6 +200,12 @@ function EventListenersHeader(){
       darkScreen.classList.remove('visible');
       dropDownYourAccount.classList.remove('visible');
   }
+  /*CLICK BUTTON*/
+
+  singinButton.addEventListener('click',()=>{
+      window.location.href = 'login.html'
+  })
+  
 
   languageContainer.addEventListener('mouseenter',()=>{
       
@@ -208,7 +215,6 @@ function EventListenersHeader(){
       
       hideLanguageMenu();
   });
-
   dropDownLanguage.addEventListener('mouseenter',()=>{
       
       showLanguageMenu();
@@ -225,6 +231,7 @@ function EventListenersHeader(){
   yourAccountContainer.addEventListener('mouseleave',()=>{
     hideYourAccountMenu();
   });
+
 }
 EventListenersHeader();
 
