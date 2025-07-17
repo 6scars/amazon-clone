@@ -1,3 +1,5 @@
+
+
 const headerHTML = `
       <div class="amazon-header-left-section">
         <div class="amazon-logo-container">

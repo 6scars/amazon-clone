@@ -55,10 +55,6 @@ sendProducts();
 
 
 
-
-
-
-
 /* takes from database and send to frontend*/
 function sendProducts(){
     app.get('/products',(req,res)=>{
@@ -80,49 +76,47 @@ app.post('/send-products',(req,res)=>{
 
 app.post('/send-order', async (req, res) => {
     try{
+        const order = req.body;
+        const today = dayjs();
+        let totalPrice = 0;
+        const tax = 1.10;
+        let prodObiects = [];
+        // const deliveryObiect = getDeliveryOptionOb(order.body.deliveryOptionId);
+        // const estimatedDeliveryTime = calculateDeliveryDate(deliveryObiect) 
 
-    
-    const order = req.body;
-    const today = dayjs();
-    let totalPrice = 0;
-    const tax = 1.10;
-    let prodObiects = [];
-    // const deliveryObiect = getDeliveryOptionOb(order.body.deliveryOptionId);
-    // const estimatedDeliveryTime = calculateDeliveryDate(deliveryObiect) 
+        //this is like for all products
+        for(const item of order.body){
 
-    //this is like for all products
-    for(const item of order.body){
+            const deliveryOb = getDeliveryOptionOb(item.deliveryOptionId);
+            console.log(deliveryOb);
+            const estimatedDelivery = calculateDeliveryDate(deliveryOb);
+            const productData = await Products.findOne({id: item.productId});
 
-        const deliveryOb = getDeliveryOptionOb(item.deliveryOptionId);
-        console.log(deliveryOb);
-        const estimatedDelivery = calculateDeliveryDate(deliveryOb);
-        const productData = await Products.findOne({id: item.productId});
+            const extra = {
+                productId: productData.id,
+                quantity: item.quantity,
+                estimatedDeliveryTime: estimatedDelivery,
+                variation: item.variation || null
+            }
+            totalPrice += ((productData.priceCents * item.quantity) +deliveryOb.priceCents)*tax;
+            prodObiects.push(extra);
 
-        const extra = {
-            productId: productData.id,
-            quantity: item.quantity,
-            estimatedDeliveryTime: estimatedDelivery,
-            variation: item.variation || null
         }
-        totalPrice += ((productData.priceCents * item.quantity) +deliveryOb.priceCents)*tax;
-        prodObiects.push(extra);
-
-    }
 
 
-    
+        
 
-        const nOrder = new Orders({
-            orderTime: today.toISOString(),
-            totalCostCents: totalPrice,
-            products: prodObiects
-        });
+            const nOrder = new Orders({
+                orderTime: today.toISOString(),
+                totalCostCents: totalPrice,
+                products: prodObiects
+            });
 
-        // await nOrder.save();
-        res.json(nOrder);
-    }catch(error){
-        console.log('app.js post /send-order',error);
-    }
+            // await nOrder.save();
+            res.json(nOrder);
+        }catch(error){
+            console.log('app.js post /send-order',error);
+        }
     
 });
 
@@ -130,35 +124,35 @@ app.post('/send-order', async (req, res) => {
 //////////////////////////////////////////////////////
 /* LOGIN */
 
-const users=[
-    {id:'1', username:'admin',password:'1234'}
-]
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 console.log("JWT_SECRET", process.env.JWT_SECRET);
 
 app.post('/login',async (req,res)=>{
-    const user = await Users.findOne({
-            username:req.body.username,
+    try{
+        const user = await Users.findOne({
             email: req.body.email,
         });
             console.log('req',req.body);
-    if(!user)
-        return res.status(401).json({message:'Inputed not correct data, try again'})
+        if(!user)
+            return res.status(401).json({message:'User not found'})
 
 
-    const passwordMatch = bcrypt.compare(req.body.password, user.password);
+        const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+        
+        if(!passwordMatch){
+            return res.status(401).json({message: 'Ivalid email or password, try again'})
+        }else if(passwordMatch){
+            const token = jwt.sign({userId: user.id}, JWT_SECRET, {expiresIn: '1h'});
+            res.json({token});
+        }
+    }catch(err){
+        console.error('server error', err);
+        res.status(500).json({message: 'server error'});
+    }
+    
 
-
-
-    console.log(user);
-    if(!passwordMatch)
-        return res.status(401).json({message: 'error'})
-
-    const token = jwt.sign({userId: user.id}, JWT_SECRET, {expiresIn: '1m'});
-    console.log(token);
-    res.json({token});
 
 })
 
@@ -171,13 +165,13 @@ function authenticateToken(req,res,next){
     }
     const usedToken = authHeader?.split(' ')[1];
 
-
-
     if(!usedToken)
         return res.status(401).json({message:'there is not token'});
 
     try{
+        console.log('before decoded');
         const decoded = jwt.verify(usedToken, JWT_SECRET);
+         console.log('decoded:',decoded)
         req.userId = decoded.userId;
         next();
     }catch(e){
@@ -186,14 +180,11 @@ function authenticateToken(req,res,next){
 
 };
 
-app.get('/profile', authenticateToken, (req,res)=>{
-    res.json({message:`Witaj użytkowniku o ID: ${req.userId}`})
+app.get('/veryfication-token',authenticateToken, (req,res)=>{
+    res.json({message:'token valid', user: req.userId});
 })
 
-
 /* REGISTER */
-
-
 app.post('/register',async (req,res)=>{
 
     console.log(req)
@@ -206,7 +197,7 @@ app.post('/register',async (req,res)=>{
         password: Rpassword,
         email: Remail,
     });
-    // await user.save();
+    await user.save();
     console.log(req);
     return res.status(200).json({message:'registering...'})
 })
