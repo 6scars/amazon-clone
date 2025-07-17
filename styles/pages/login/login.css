@@ -4,7 +4,7 @@ body{
 }
 
 main{
-    height:400px;
+    height:auto;
     border:1px solid rgb(189, 185, 185);
     padding-bottom:50px;
 
