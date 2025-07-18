@@ -13,11 +13,33 @@ export async function UserVeryficationToken(){
         if(!respond.ok){
             console.warn('Token is not valid or server error')
         }
-
-        return respond.ok;
+        const data = await respond.json();
+        console.log(data)
+        return data;
     }catch(err){
         console.log('authorization Token error:',err);
     }
 
 }
-UserVeryficationToken();
+
+export async function takeUserData() {
+    try {
+        const respond = await fetch('http://localhost:3000/userData', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        });
+
+        if (!respond.ok) {
+            const errorData = await respond.json();
+            throw new Error(errorData.message || 'takeUserData fetch error');
+        }
+
+        const data = await respond.json();
+        return data.user
+    } catch (err) {
+        console.error('takingUserData failed',err);
+    }
+}

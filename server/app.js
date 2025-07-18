@@ -156,7 +156,7 @@ app.post('/login',async (req,res)=>{
 
 })
 
-
+/*AUTHORIZATION*/
 function authenticateToken(req,res,next){
     const authHeader = req.headers.authorization;
 
@@ -180,9 +180,43 @@ function authenticateToken(req,res,next){
 
 };
 
+
+
+/* TAKING USER DATA */
+async function takingUserData(req, res, next) {
+    try {
+        const userId = req.userId;
+        const user = await Users.findById(userId);
+        if (!user) {
+            return res.status(401).json({ message: 'Didn\'t find such user, please log in and try again' });
+        }
+        req.userData = user;
+        next();
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+
+
+/*  PATHS   */
+
+app.get('/userData', authenticateToken, takingUserData,(req,res)=>{
+    console.log('userdata:',req.userData);
+    res.json({user: req.userData})
+})
+
+
 app.get('/veryfication-token',authenticateToken, (req,res)=>{
     res.json({message:'token valid', user: req.userId});
 })
+
+
+
+
+
+
 
 /* REGISTER */
 app.post('/register',async (req,res)=>{
