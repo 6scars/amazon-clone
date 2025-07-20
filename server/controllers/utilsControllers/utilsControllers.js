@@ -1,0 +1,47 @@
+
+const jwt = require('jsonwebtoken');
+const Users = require('../../models/modelUser.js');
+
+const takingUserData  = async(req, res, next) => {
+    try {
+        const userId = req.userId;
+        const user = await Users.findById(userId);
+        if (!user) {
+            return res.status(401).json({ message: 'Didn\'t find such user, please log in and try again' });
+        }
+        req.userData = user;
+        next();
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+
+const authenticateToken = (req,res,next)=>{
+    const authHeader = req.headers.authorization;
+
+    if(!authHeader || !authHeader.startsWith('Bearer ')){
+        return res.status(401).json({ message: 'Brak lub niepoprawny nagłówek Authorization' });
+    }
+    const usedToken = authHeader?.split(' ')[1];
+
+    if(!usedToken)
+        return res.status(401).json({message:'there is not token'});
+
+    try{
+        console.log('before decoded');
+        const decoded = jwt.verify(usedToken, JWT_SECRET);
+         console.log('decoded:',decoded)
+        req.userId = decoded.userId;
+        next();
+    }catch(e){
+        return res.status(400).json({message:`you are not loged in, try log in to continue`});
+    }
+
+};
+
+module.exports = {
+    takingUserData,
+    authenticateToken
+}
