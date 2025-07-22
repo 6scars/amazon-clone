@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/pages/login/login.css">
-    <title>Amazon Login</title>
-</head>
-<body>
-    <main>
-        <div class="amazon-logo-cont">
-            <a class="amazon-logo-link" href="amazon.html"><img class="amazon-logo" src="images/amazon-logo.png"></a>
-        </div>
-        <div class="login-form-cont">
-            <div class="sing-in-header">Sing in or create account</div>
+export const loginFormHTML = `
+     
+            <div class="sing-in-header">SING IN</div>
             <form id="loginForm">
                 <div class="enter-email-cont">
-                    <p>Enter your email and password</p>
+                    <p>Enter your email and password to login </p>
                     
                         <input class="login-form-input" type="email" name="email" autocomplete="username" placeholder="email">
                         <div style="padding:5px 0;"></div>
@@ -39,12 +27,12 @@
                 <a>Need help?</a>
             </div>
             <div class="devider-vertical"></div>
-            <div class="buying-for-work-cont">
+            <div class="buying-for-work-cont js-buying-for-work-cont">
                 <span>Buying for work?</span>
-                <a>Create a free business account</a>
+                <a role="button"> Create a free business account</a>
             </div>
-        </div>
-    </main>
-    <script type="module" src="/scripts/login.js"></script>
-</body>
-</html>
+        
+    `;
+
+
+export default loginFormHTML;

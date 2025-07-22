@@ -64,6 +64,7 @@ main{
 .enter-email-cont input{
     width:92%;
     padding:7px 8px;
+    margin:0 0 7px 0;
     font-size:12px;
 
     border:1px solid black;
@@ -91,7 +92,8 @@ main{
 .login-button-cont{
     margin:12px 0 15px 0 ;
 }
-.login-button{
+.login-button,
+.register-button{
     background-color:rgb(255, 221, 30);
     width:100%;
     border:none;
@@ -100,9 +102,11 @@ main{
     font-size:12px;
     transition: background-color 0.2s;
 }
-.login-button:hover{
+.login-button:hover,
+.register-button:hover{
     text-decoration:underline;
 }
+.login-button:active,
 .login-button:active{
     background-color:rgb(231, 247, 57);
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.406);

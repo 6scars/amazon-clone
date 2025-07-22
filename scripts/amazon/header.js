@@ -231,7 +231,7 @@ function renderHeaderHTML(){
       })
     }else{
       singinButton.addEventListener('click',()=>{
-      window.location.href = 'login.html'
+      window.location.href = 'loginRegister.html'
     })
     }
 

@@ -10,7 +10,7 @@ const utils = require('../controllers/utilsControllers/utilsControllers.js');
 
 //ROUTES
 router.post('/login', loginController.loginUsser);
-router.post('/register',registerController.registerUser);
+router.post('/register',registerController.validation, registerController.registerUser);
 router.post('/send-order',orderController.sendOrder);
 router.get('/userData',utils.authenticateToken, utils.takingUserData, viewController.userData);
 router.get('/veryfication-token',utils.authenticateToken,viewController.verifyToken);
