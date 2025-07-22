@@ -11,7 +11,11 @@ const registerUser = async(req,res,next)=>{
             email: req.body.Remail,
         });
         await user.save();
-        return res.status(200).json({message:'Registered succesfully, wait for be redirected to the page...', redirect:'amazon.html'})
+        res.status(200).json({message:'Registered succesfully, wait for be redirected to the page...', redirect:'amazon.html'})
+        req.user = {
+            _id: user._id
+        }
+        next();
     }catch(err){
         console.log(err);
         res.status(500).json({message:'server error, try again later'})
