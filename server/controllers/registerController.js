@@ -11,7 +11,7 @@ const registerUser = async(req,res,next)=>{
             email: req.body.Remail,
         });
         await user.save();
-        return res.status(200).json({message:'Registered succesfully, wait for be redirected to the page...'})
+        return res.status(200).json({message:'Registered succesfully, wait for be redirected to the page...', redirect:'amazon.html'})
     }catch(err){
         console.log(err);
         res.status(500).json({message:'server error, try again later'})
@@ -27,9 +27,6 @@ const validation = async (req,res,next)=>{
     const Rpassword = req.body.Rpassword;
     const Rpassword2 = req.body.Rpassword2;
     const Remail= req.body.Remail;
-
-    console.log(Rpassword);
-    console.log(Rpassword2);
 
     const userNameFounded = await Users.findOne({username: RuserName});
     if(userNameFounded){

@@ -1,5 +1,5 @@
-import loginFormHTML from './loginRegister/loginForm.js';
-import registerFormHTML from './loginRegister/registerForm.js';
+import loginFormHTML from './loginRegisterForms/loginForm.js';
+import registerFormHTML from './loginRegisterForms/registerForm.js';
  
 
 loginLink();
@@ -78,6 +78,7 @@ function register(){
         if(respond.status < 400){
             setTimeout(()=>{
                 document.querySelector('.error-display-cont').innerHTML = data.message;
+                window.location.href = data.redirect;
             },2000)
         }
     })
