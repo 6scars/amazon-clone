@@ -1,9 +1,11 @@
 
 const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET;
 const Users = require('../../models/modelUser.js');
 
 const takingUserData  = async(req, res, next) => {
     try {
+        
         const userId = req.userId;
         const user = await Users.findById(userId);
         if (!user) {
@@ -19,8 +21,9 @@ const takingUserData  = async(req, res, next) => {
 
 
 const authenticateToken = (req,res,next)=>{
+    
     const authHeader = req.headers.authorization;
-
+    
     if(!authHeader || !authHeader.startsWith('Bearer ')){
         return res.status(401).json({ message: 'Brak lub niepoprawny nagłówek Authorization' });
     }
@@ -30,9 +33,8 @@ const authenticateToken = (req,res,next)=>{
         return res.status(401).json({message:'there is not token'});
 
     try{
-        console.log('before decoded');
         const decoded = jwt.verify(usedToken, JWT_SECRET);
-         console.log('decoded:',decoded)
+         console.log(decoded)
         req.userId = decoded.userId;
         next();
     }catch(e){

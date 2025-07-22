@@ -21,7 +21,6 @@ export function loadProductsGrid(){
   let url = new URL(window.location.href);
   const searchParams = url.searchParams.get('search');
   const searchedItems =searchParams ? searchedProducts(searchParams) : products;
-  console.log(searchedItems);
   
   let productsHtml = '';
   let timeoutId;
