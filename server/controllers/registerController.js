@@ -10,10 +10,8 @@ const registerUser = async(req,res,next)=>{
             password: RpasswordBcrypt,
             email: req.body.Remail,
         });
-
-        console.log(user);
         await user.save();
-        return res.status(200).json({message:'registered'})
+        return res.status(200).json({message:'Registered succesfully, wait for be redirected to the page...'})
     }catch(err){
         console.log(err);
         res.status(500).json({message:'server error, try again later'})

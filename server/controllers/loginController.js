@@ -18,7 +18,7 @@ const loginUsser = async (req,res)=>{
             return res.status(401).json({message: 'Ivalid email or password, try again'})
         }else if(passwordMatch){
             const token = jwt.sign({userId: user.id}, JWT_SECRET, {expiresIn: '1h'});
-            res.json({token});
+            res.json({token, message:'Logedin succesfully, wait for redirect to the page'});
         }
     }catch(err){
         console.error('server error', err);

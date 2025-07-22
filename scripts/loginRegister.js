@@ -75,6 +75,11 @@ function register(){
 
         const data = await respond.json();
         document.querySelector('.error-display-cont').innerHTML = data.message;
+        if(respond.status < 400){
+            setTimeout(()=>{
+                document.querySelector('.error-display-cont').innerHTML = data.message;
+            },2000)
+        }
     })
 }
 
@@ -98,15 +103,15 @@ function login(){
                 })
             });
             const data = await respond.json();
-            console.log('respond.status', respond.status)
             if(respond.status < 400){
-                console.log(data)
+                document.querySelector('.error-display-cont').innerHTML = data.message;
                 setTimeout(()=>{
                     localStorage.setItem('jwt',data.token);
                     window.location.href = 'amazon.html';
                     
-                },1000)
+                },2000)
             }else{
+                document.querySelector('.error-display-cont').innerHTML = data.message;
                 throw data;
             }
         
