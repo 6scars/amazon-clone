@@ -11,7 +11,8 @@
     "module": "^1.2.5",
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
   },
   "name": "amazon",
   "version": "1.0.0",
