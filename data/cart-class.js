@@ -129,6 +129,9 @@ export let cart = new Cart('cart');
 // }
 
 
+
+
+
 export async function loadCartFetch(fun){
   const promise = await fetch('https://supersimplebackend.dev/cart').then((response)=>{
     return response.text();

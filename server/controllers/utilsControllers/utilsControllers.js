@@ -25,12 +25,12 @@ const authenticateToken = (req,res,next)=>{
     const authHeader = req.headers.authorization;
     
     if(!authHeader || !authHeader.startsWith('Bearer ')){
-        return res.status(401).json({ message: 'Brak lub niepoprawny nagłówek Authorization' });
+        return res.status(401).json({ message: 'No header or not valid header Authorization' });
     }
     const usedToken = authHeader?.split(' ')[1];
 
     if(!usedToken)
-        return res.status(401).json({message:'there is not token'});
+        return res.status(401).json({message:'There is not token'});
 
     try{
         const decoded = jwt.verify(usedToken, JWT_SECRET);
@@ -38,7 +38,7 @@ const authenticateToken = (req,res,next)=>{
         req.userId = decoded.userId;
         next();
     }catch(e){
-        return res.status(400).json({message:`you are not loged in, try log in to continue`});
+        return res.status(400).json({message:`You are not loged in, try log in to continue`});
     }
 
 };

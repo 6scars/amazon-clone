@@ -8,6 +8,8 @@ new Promise(()=>{
   loadProductsFetch().then(()=>{
     loadProductsGrid();
     searchBar();
+  }).then(()=>{
+     addEventToButtons();
   }).catch(()=>{
     return 'promise amazon.js'
   })
@@ -68,30 +70,45 @@ export function loadProductsGrid(){
                 Added
             </div>
 
-            <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${content.id}"">
+            <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${content.id}">
               Add to Cart
             </button>
           </div>`;
+          
   });
 
-
-
-
-
-
-
-
-  function addEventToButtons(){
+  document.querySelector('.products-grid').innerHTML = productsHtml;
+  addEventToButtons();
+    function addEventToButtons(){
+    
     document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
-      button.addEventListener('click',()=>{
-        
+      button.addEventListener('click', async ()=>{
         const productId = button.dataset.productId;
         const quantSelected = parseInt(document.querySelector(
           `.product-quantity-container[data-product-id="${button.dataset.productId}"]`).querySelector('select').value);
     
 
-        cart.addToCart(productId, quantSelected);
-        updateCartQuantityHeader();
+        // cart.addToCart(productId, quantSelected);
+        //i need to be loged in to add to cart at this moment
+        const response = await fetch('/send-product-to-cart',{
+          method:'POST',
+          headers:{
+            'Content-Type': 'application/json',
+            'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+          },
+          body:JSON.stringify({
+            productId,
+            quantity:quantSelected,
+            deliveryOptionId:'1'
+          })
+        })
+
+        const data = await response.json()
+        console.log(data.message);
+
+
+        
+        // updateCartQuantityHeader();
 
     
         const timeoutElement = document.querySelector(`.product-${productId}`)
@@ -109,16 +126,13 @@ export function loadProductsGrid(){
           }
 
         
+          
+
         
       });
     });
   };
 
-
-
-
-
-  document.querySelector('.products-grid').innerHTML = productsHtml;
-  updateCartQuantityHeader();
-  addEventToButtons();
+ 
 }
+

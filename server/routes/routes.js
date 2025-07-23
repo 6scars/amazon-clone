@@ -32,7 +32,7 @@ router.get('/userData',utils.authenticateToken, utils.takingUserData, viewContro
 router.get('/veryfication-token',utils.authenticateToken,viewController.verifyToken);
 
 //for cart
-// router.post('/send-product-to-cart',cartController.addToCart)
+router.post('/send-product-to-cart',utils.authenticateToken, cartController.addToCart)
 
 module.exports = router;
 

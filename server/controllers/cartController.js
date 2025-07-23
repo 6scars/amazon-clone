@@ -1,6 +1,7 @@
 const Cart = require('../models/modelCart.js');
+const jwt = require('jsonwebtoken');
 
-const createCart = async(req,res,rext) =>{
+const createCart = async(req,res,next) =>{
     try{
         const userId = req.user._id;
         console.log(userId)
@@ -9,7 +10,6 @@ const createCart = async(req,res,rext) =>{
         userId: userId,
         cartItems:[]
         })
-        console.log('new cart creating')
         await newCart.save();
     }catch(err){
         console.log(err);
@@ -17,11 +17,47 @@ const createCart = async(req,res,rext) =>{
     
 }
 
+const addToCart = async (req,res)=>{
+    try{
+        const { productId,quantity, deliveryOptionId} = req.body;
+        const userId = req.userId;
+        const userCart = await Cart.findOne({userId});
+        
+
+
+        if(!userCart){
+            const newCart = new Cart({
+                userId,
+                cartItems: [{ productId, quantity, deliveryOptionId}]
+            });
+            await newCart.save();
+            return res.status(201).json({message:'Cart created and item added'});
+        }
+        const existing = userCart.cartItems.find(item => item.productId === productId);
+
+        if(existing){
+            
+            existing.quantity += quantity;
+        }else{
+            userCart.cartItems.push({ productId,quantity, deliveryOptionId});
+        }
+
+        
+        await userCart.save();
+        res.status(200).json({message:'Product added to cart'});
+
+    }catch(err){
+        console.log(`adding to cart error${err}`);
+    }
+}
+
+
+
 // const addToCart = async (req,res) =>{
 
 // }
 
 module.exports = {
-    // addToCart
+    addToCart,
     createCart
 }
