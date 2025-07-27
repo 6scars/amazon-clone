@@ -29,10 +29,11 @@ router.post('/login', loginController.loginUsser);
 router.post('/register',registerController.validation, registerController.registerUser, cartController.createCart);
 router.post('/send-order',orderController.sendOrder);
 router.get('/userData',utils.authenticateToken, utils.takingUserData, viewController.userData);
-router.get('/veryfication-token',utils.authenticateToken,viewController.verifyToken);
+router.get('/veryfication-token',utils.authenticateToken, viewController.verifyToken);
 
 //for cart
 router.post('/send-product-to-cart',utils.authenticateToken, cartController.addToCart)
+router.get('/userDataCart',utils.authenticateToken,cartController.readFromCart );
 
 module.exports = router;
 

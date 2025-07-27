@@ -51,6 +51,14 @@ const addToCart = async (req,res)=>{
     }
 }
 
+const readFromCart = async (req,res)=>{
+    const userId = req.userId;
+    const userCart = await Cart.findOne({userId})
+    if(!userCart){
+       return res.status(401).json({message:'Can\'t find such a user'})
+    }
+    res.json(userCart);
+}
 
 
 // const addToCart = async (req,res) =>{
@@ -59,5 +67,6 @@ const addToCart = async (req,res)=>{
 
 module.exports = {
     addToCart,
-    createCart
+    createCart,
+    readFromCart
 }

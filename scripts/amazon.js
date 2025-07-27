@@ -104,11 +104,9 @@ export function loadProductsGrid(){
         })
 
         const data = await response.json()
-        console.log(data.message);
 
-
-        
-        // updateCartQuantityHeader();
+        const cartQuantity = parseInt(document.querySelector('.js-cart-quantity').innerHTML)+1;
+        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
     
         const timeoutElement = document.querySelector(`.product-${productId}`)
@@ -124,15 +122,13 @@ export function loadProductsGrid(){
               timeoutElement.classList.remove('visible-added-sign');
             },2000);
           }
-
-        
-          
-
-        
       });
     });
   };
+}
 
- 
+
+function addToCartQuant(){
+  const button = document.querySelector('.')
 }
 

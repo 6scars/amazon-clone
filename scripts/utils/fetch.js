@@ -43,3 +43,19 @@ export async function takeUserData() {
         console.error('takingUserData failed',err);
     }
 }
+
+export async function takeUserCart(){
+    try{   
+        const response = await fetch('http://localhost:3000/userDataCart',{
+            method:'GET',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        const data = await response.json();
+        return data;
+    }catch(err){
+        console.log('error takeUserData',err);
+    }
+}
