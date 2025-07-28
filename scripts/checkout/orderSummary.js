@@ -201,7 +201,8 @@ function iteringAddEventOnClickSaveQuantity(){
 
         // cart.overwriteQuantityInCart(prodId, containerElement, quantity);
         userCart = await changeQuantityCart(prodId, quantity);
-        console.log()
+        displayCartSummary()
+        reattachEventListeners();
         renderCheckoutHeader(userCart);
         renderPaymentSummary(userCart);
         
@@ -226,7 +227,7 @@ function iteringAddEventOnClickSaveQuantity(){
 
     };
 
-    function saveQuantityOnEnter(event){
+    async function saveQuantityOnEnter(event){
             if(event.key === "Enter"){
                 let saveInputItem = event.currentTarget;
                 let prodId = saveInputItem.dataset.productIdInput;
@@ -237,9 +238,11 @@ function iteringAddEventOnClickSaveQuantity(){
                 if(!(quantity > 0  && quantity < 1000))
                     return;
 
-                cart.overwriteQuantityInCart(prodId, containerElement, quantity);
-                renderCheckoutHeader(userCart);
-                renderPaymentSummary(userCart);
+            userCart = await changeQuantityCart(prodId, quantity);
+            displayCartSummary()
+            reattachEventListeners();
+            renderCheckoutHeader(userCart);
+            renderPaymentSummary(userCart);
             };
     };
 
@@ -273,7 +276,7 @@ export  function iteringAddEventOnClickDate (){
         element.addEventListener('click',async()=>{
             const {productId, deliveryOptionId} = element.dataset;
             // cart.updateDeliveryOption(productId, deliveryOptionId);
-            userCart= await changeDeliveryOption(productId, deliveryOptionId);
+            userCart = await changeDeliveryOption(productId, deliveryOptionId);
 
             displayCartSummary();
             reattachEventListeners();
