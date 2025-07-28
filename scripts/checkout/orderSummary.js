@@ -16,7 +16,6 @@ export function mainHTML(data){
     userCart = data
     displayCartSummary();
     iteringAddEventOnClickDelete();
-    displayQuantityInHeader();
     iteringAddEventOnClickUpdateQuantity();
     iteringAddEventOnClickSaveQuantity();
     iteringAddEventOnClickDate()
@@ -150,7 +149,7 @@ export  function iteringAddEventOnClickDelete(){
             const data = await removeFromCart(dataIdElement);
             userCart = data.userCart;
             displayCartSummary();
-            displayQuantityInHeader();
+            renderCheckoutHeader(userCart);
             renderPaymentSummary();
             reattachEventListeners();
 
@@ -206,7 +205,7 @@ function iteringAddEventOnClickSaveQuantity(){
             return;
 
         cart.overwriteQuantityInCart(prodId, containerElement, quantity);
-        displayQuantityInHeader(); 
+         renderCheckoutHeader(userCart);
         renderPaymentSummary();
         
     };
@@ -243,7 +242,7 @@ function iteringAddEventOnClickSaveQuantity(){
                     return;
 
                 overwriteQuantityInCart(prodId, containerElement, quantity);
-                displayQuantityInHeader(); 
+                renderCheckoutHeader(userCart);
                 renderPaymentSummary();
             };
     };
@@ -265,19 +264,11 @@ function iteringAddEventOnClickSaveQuantity(){
 
 
 
-
-
-
-function displayQuantityInHeader(){
-    renderCheckoutHeader();
-
-};
-
 function reattachEventListeners() {
     iteringAddEventOnClickDelete();
     iteringAddEventOnClickUpdateQuantity();
     iteringAddEventOnClickSaveQuantity();
-    iteringAddEventOnClickDate(); // Ważne! Ponownie przypisz eventy do opcji dostawy
+    iteringAddEventOnClickDate();
 }
 
     

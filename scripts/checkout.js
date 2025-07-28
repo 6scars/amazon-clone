@@ -27,7 +27,7 @@ async function loadPage(){
 
     mainHTML(userCart);
     renderPaymentSummary();
-    renderCheckoutHeader();
+    renderCheckoutHeader(userCart);
 
 }
 loadPage();
