@@ -1,12 +1,15 @@
 import {products} from '../../data/products.js'
 export function searchBar(){
-
-    const searchButton = document.querySelector('.js-search-button');
-
-    searchButton.addEventListener('click',()=>{
-        const searchBar = document.querySelector('.js-search-bar');
-        window.location.href = `amazon.html?search=${searchBar.value}`;
-    })
+        
+    const searchBtn = document.querySelector('.js-search-button');
+    if (searchBtn) {
+    searchBtn.addEventListener('click', () => {
+        const searchInput = document.querySelector('.js-search-bar');
+        window.location.href = `amazon.html?search=${searchInput.value}`;
+    });
+    } else {
+    console.warn('Brak .js-search-button w DOM!');
+    }
 
 }   
 

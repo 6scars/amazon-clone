@@ -1,5 +1,6 @@
 import {takeUserData, takeUserCart} from '../utils/fetch.js';
 import {countQuantity} from '../../data/logedCart.js'
+import {searchBar} from './amazonSearchBar.js'
 let isLogedIn = false;
 let haveCart = false;
 let userData;
@@ -10,17 +11,17 @@ verifying();
 
 
 
-async function verifying(){
+export async function verifying(){
   userData = await takeUserData();
   userDataCart = await takeUserCart();
-  console.log();
   if(userData){
     isLogedIn = true;
   }
     if(userDataCart){
     haveCart = true;
   }
-  renderHeaderHTML()
+  renderHeaderHTML();
+  searchBar();
 }
 
 

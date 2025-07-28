@@ -1,6 +1,31 @@
+
+export async function sendProductToCart(productId, quantSelected){
+    try{
+        const response = await fetch('/send-product-to-cart',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+            },
+            body:JSON.stringify({
+                productId,
+                quantity:quantSelected,
+                deliveryOptionId:'1'
+            })
+            })
+
+            const data = await response.json()
+
+    }catch(e){
+        console.log('sendProductToCart error:',e);
+    }
+    
+}
+
 export async function UserVeryficationToken(){
     try{
         const token = localStorage.getItem('jwt');
+        if(!token) return false;
         const respond = await fetch('http://localhost:3000/veryfication-token',{
             method:'GET',
             headers:{
@@ -11,13 +36,16 @@ export async function UserVeryficationToken(){
 
         
         if(!respond.ok){
-            console.warn('Token is not valid or server error')
+            console.warn('Token is not valid or server error');
+            return false
         }
+
         const data = await respond.json();
         console.log(data)
         return data;
     }catch(err){
         console.log('authorization Token error:',err);
+        return false;
     }
 
 }

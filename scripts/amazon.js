@@ -2,24 +2,36 @@ import {cart} from '../data/cart-class.js';
 import {products, loadProductsFetch} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 import {updateCartQuantity,updateCartQuantityHeader} from './utils/quantity.js';
-import {searchBar,searchedProducts} from './amazon/amazonSearchBar.js'
+import {searchedProducts} from './amazon/amazonSearchBar.js'
+import {sendProductToCart, UserVeryficationToken} from './utils/fetch.js';
 
-new Promise(()=>{
-  loadProductsFetch().then(()=>{
+
+let isLogedIn = false;
+
+
+async function loadPage() {
+  try {
+    const [_, userToken] = await  Promise.all([
+      loadProductsFetch(),
+      UserVeryficationToken(),
+
+    ]);
     loadProductsGrid();
-    searchBar();
-  }).then(()=>{
-     addEventToButtons();
-  }).catch(()=>{
-    return 'promise amazon.js'
-  })
-})
+
+    if(userToken){
+      isLogedIn = true;
+    }
+
+  } catch (e) {
+    console.log('loadPage error', e);
+  }
+}
 
 
 
+loadPage();
 
-
-export function loadProductsGrid(){
+export async function loadProductsGrid(){
   let url = new URL(window.location.href);
   const searchParams = url.searchParams.get('search');
   const searchedItems =searchParams ? searchedProducts(searchParams) : products;
@@ -75,12 +87,18 @@ export function loadProductsGrid(){
             </button>
           </div>`;
           
-  });
-
+  }); 
   document.querySelector('.products-grid').innerHTML = productsHtml;
   addEventToButtons();
+
+
+
+
+
+
+
+
     function addEventToButtons(){
-    
     document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
       button.addEventListener('click', async ()=>{
         const productId = button.dataset.productId;
@@ -90,20 +108,7 @@ export function loadProductsGrid(){
 
         // cart.addToCart(productId, quantSelected);
         //i need to be loged in to add to cart at this moment
-        const response = await fetch('/send-product-to-cart',{
-          method:'POST',
-          headers:{
-            'Content-Type': 'application/json',
-            'Authorization':`Bearer ${localStorage.getItem('jwt')}`
-          },
-          body:JSON.stringify({
-            productId,
-            quantity:quantSelected,
-            deliveryOptionId:'1'
-          })
-        })
-
-        const data = await response.json()
+        await sendProductToCart(productId, quantSelected);
 
         const cartQuantity = parseInt(document.querySelector('.js-cart-quantity').innerHTML)+1;
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
@@ -125,10 +130,8 @@ export function loadProductsGrid(){
       });
     });
   };
-}
 
 
-function addToCartQuant(){
-  const button = document.querySelector('.')
 }
+
 
