@@ -1,3 +1,4 @@
+import {cart} from '../data/cart-class.js';
 import {mainHTML} from './checkout/orderSummary.js';
 import {renderPaymentSummary} from './checkout/paymentSummary.js';
 import {renderCheckoutHeader} from './checkout/checkoutHeader.js';
@@ -16,7 +17,13 @@ async function loadPage(){
             loadCartFetch(),
             takeUserCart()
         ]);
-        userCart = data;
+        if(!data){ 
+            userCart = cart;
+            
+        }else{
+            userCart = data;
+        }
+        console.log(userCart)
     }catch(error){
         console.log('error loadPage');
     }

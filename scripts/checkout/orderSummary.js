@@ -1,4 +1,4 @@
-import {cart} from '../../data/cart-class.js';
+
 import {products} from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import {updateCartQuantity} from '../utils/quantity.js';
@@ -12,7 +12,7 @@ isSatSun();
 let userCart;
 
 
-export function mainHTML(data){
+export function mainHTML(data = null){
     userCart = data
     displayCartSummary();
     iteringAddEventOnClickDelete();
@@ -28,8 +28,7 @@ export function mainHTML(data){
 export function displayCartSummary(){
     
     let cartSummaryHTML='';
-    
-    console.log(userCart)
+
     userCart.cartItems.forEach((cartItem)=>{
         products.forEach((productsItem)=>{
             if(cartItem.productId === productsItem.id){

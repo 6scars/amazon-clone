@@ -23,6 +23,7 @@ class Cart{
       };
 
 
+
       addToCart(productId,quant=1){
           let matchingItem=NaN;
           this.cartItems.forEach((thing)=>{
