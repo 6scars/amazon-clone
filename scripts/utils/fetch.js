@@ -78,3 +78,26 @@ export async function removeFromCart(productId){
         console.log('removeFromCart error: ',err)
     }
 }
+
+export async function changeDeliveryOption(productId, deliveryOptionId){
+    try{
+        const response = await fetch('http://localhost:3000/changeDeliveryOption', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+            },
+            body: JSON.stringify(
+                {
+                    productId,
+                    deliveryOptionId
+                }
+            )
+        });
+
+        return await response.json();
+    }catch(e){
+        console.log('changeDeliveryOption error',e);
+    }
+
+}

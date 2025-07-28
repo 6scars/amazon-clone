@@ -83,11 +83,36 @@ const removeFromCart = async(req,res)=>{
 
 }
 
+const changeDeliveryOption = async(req,res)=>{
+    try{
+        const userId = req.userId;
+        const productId = req.body.productId;
+        const userCart = await Cart.findOneAndUpdate({
+                userId: userId,
+                'cartItems.productId': productId
+            },{
+                $set: {
+                    'cartItems.$.deliveryOptionId': req.body.deliveryOptionId}
+            },{
+                new:true
+            }
+        )
+
+        if(!userCart){
+            return res.status(400).json({message:'Can\'t find such user or product in cart'})
+        }
+        return res.status(200).json({message:'have changed delivery option', userCart})
+    }catch(e){
+        return res.status(500).json({message: 'server changeDeliveryOptioon error,',e})
+    }
+}
+
 
 
 module.exports = {
     addToCart,
     createCart,
     readFromCart,
-    removeFromCart
+    removeFromCart,
+    changeDeliveryOption
 }

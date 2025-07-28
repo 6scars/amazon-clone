@@ -35,6 +35,7 @@ router.get('/veryfication-token',utils.authenticateToken, viewController.verifyT
 router.post('/send-product-to-cart',utils.authenticateToken, cartController.addToCart)
 router.get('/userDataCart',utils.authenticateToken, cartController.readFromCart );
 router.post('/removeProdItemCart', utils.authenticateToken, cartController.removeFromCart)
+router.post('/changeDeliveryOption', utils.authenticateToken, cartController.changeDeliveryOption)
 
 module.exports = router;
 

@@ -7,7 +7,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import {deliveryOptions, getDeliveryOptionOb, calculateDeliveryDate} from '../../data/deliveryOptions.js';
 import {renderPaymentSummary} from './paymentSummary.js';
 import {renderCheckoutHeader} from './checkoutHeader.js';
-import {removeFromCart} from '../utils/fetch.js'
+import {removeFromCart, changeDeliveryOption} from '../utils/fetch.js'
 isSatSun();
 let userCart;
 
@@ -276,6 +276,8 @@ export function iteringAddEventOnClickDate(){
         element.addEventListener('click',()=>{
             const {productId, deliveryOptionId} = element.dataset;
             cart.updateDeliveryOption(productId, deliveryOptionId);
+            changeDeliveryOption(productId, deliveryOptionId)
+
             displayCartSummary();
             reattachEventListeners();
             renderPaymentSummary();
