@@ -1,4 +1,4 @@
-
+import {cart} from '../../data/cart-class.js';
 import {products} from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import {updateCartQuantity} from '../utils/quantity.js';
@@ -10,9 +10,10 @@ import {renderCheckoutHeader} from './checkoutHeader.js';
 import {removeFromCart, changeDeliveryOption, changeQuantityCart} from '../utils/fetch.js'
 isSatSun();
 let userCart;
+let isLogedIn = false;
 
 
-export function mainHTML(data = null){
+export function mainHTML(data = null, isLogedIn = false){
     userCart = data
     displayCartSummary();
     iteringAddEventOnClickDelete();
@@ -145,8 +146,14 @@ export  function iteringAddEventOnClickDelete(){
             let dataIdElement = event.target.dataset.deleteId;
 
             // cart.removeFromCart(dataIdElement);
-            const data = await removeFromCart(dataIdElement);
-            userCart = data.userCart;
+            if(isLogedIn){
+                const data = await removeFromCart(dataIdElement);
+                userCart = data.userCart;
+            }else{
+                cart.removeFromCart(dataIdElement);
+                userCart = cart;
+            }
+            
             displayCartSummary();
             renderCheckoutHeader(userCart);
             renderPaymentSummary(userCart);
@@ -196,10 +203,17 @@ function iteringAddEventOnClickSaveQuantity(){
         let inputElement = document.querySelector(`.js-cart-item-container-${prodId}`).querySelector('.js-quantity-input');
         const quantity = Number(inputElement.value);
         if(!(quantity > 0  && quantity < 1000))
-            return;
+            return
 
-        // cart.overwriteQuantityInCart(prodId, containerElement, quantity);
-        userCart = await changeQuantityCart(prodId, quantity);
+        // 
+        if(isLogedIn){
+            userCart = await changeQuantityCart(prodId, quantity);
+        }else{
+            cart.overwriteQuantityInCart(prodId, inputElement, quantity);
+            userCart = cart
+            
+        }
+        
         displayCartSummary()
         reattachEventListeners();
         renderCheckoutHeader(userCart);
@@ -237,7 +251,13 @@ function iteringAddEventOnClickSaveQuantity(){
                 if(!(quantity > 0  && quantity < 1000))
                     return;
 
-            userCart = await changeQuantityCart(prodId, quantity);
+                if(isLogedIn){
+                    userCart = await changeQuantityCart(prodId, quantity);
+                }else{
+                    cart.overwriteQuantityInCart(prodId, containerElement, quantity);
+                    userCart = cart
+                    
+                }
             displayCartSummary()
             reattachEventListeners();
             renderCheckoutHeader(userCart);

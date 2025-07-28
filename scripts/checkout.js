@@ -9,6 +9,7 @@ import {takeUserCart} from './utils/fetch.js';
 // import '../data/backend-practice.js';
 
 let userCart;
+let isLogedIn = false;
 
 async function loadPage(){
     try{
@@ -21,6 +22,7 @@ async function loadPage(){
             userCart = cart;
             
         }else{
+            isLogedIn = true;
             userCart = data;
         }
         console.log(userCart)
@@ -28,9 +30,9 @@ async function loadPage(){
         console.log('error loadPage');
     }
 
-    mainHTML(userCart);
-    renderPaymentSummary(userCart);
-    renderCheckoutHeader(userCart);
+    mainHTML(userCart, isLogedIn);
+    renderPaymentSummary(userCart, isLogedIn);
+    renderCheckoutHeader(userCart, isLogedIn);
 
 }
 loadPage();

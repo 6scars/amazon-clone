@@ -74,12 +74,12 @@ class Cart{
 
 
 
-    overwriteQuantityInCart(prodId, containerElement, quantity){
+    overwriteQuantityInCart(prodId, inputElement, quantity){
         this.cartItems.forEach((cartItem)=>{
             if(cartItem.productId === prodId){
                 cartItem.quantity = quantity;
                 
-                let quantityOfItems = containerElement.querySelector('.js-quantity-label');
+                let quantityOfItems = inputElement
                 quantityOfItems.innerHTML = quantity;
                 this.saveToStorage()
         
