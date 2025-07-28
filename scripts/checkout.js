@@ -21,10 +21,6 @@ async function loadPage(){
         console.log('error loadPage');
     }
 
-    
-    
-
-
     mainHTML(userCart);
     renderPaymentSummary(userCart);
     renderCheckoutHeader(userCart);
@@ -32,60 +28,3 @@ async function loadPage(){
 }
 loadPage();
 
-
-
-/*
-
-Promise.all([
-    loadProductsFetch().then(()=>{
-        return 'value1'
-    }),
-
-    new Promise((resolve)=>{
-        loadCart(()=>{
-            resolve('value2');
-        });
-    })
-
-]).then((value)=>{
-    mainHTML();
-     renderPaymentSummary();
-     renderCheckoutHeader();
-})
-*/
-
-/*
-new Promise((resolve)=>{
-
-    loadProducts(()=>{
-        resolve('value1');
-    })
-
-
-}).then((value)=>{
-    console.log(value);
-
-    return new Promise((resolve)=>{
-        resolve('value2');
-
-    });
-}).then((value)=>{
-    
-        mainHTML();
-     renderPaymentSummary();
-     renderCheckoutHeader();
-     console.log(value);
-     
-});
-
-*/
-
-
-
-// loadProducts(()=>{
-//     loadCart(()=>{
-    // mainHTML();
-    //  renderPaymentSummary();
-    //  renderCheckoutHeader();
-//     })
-// })
