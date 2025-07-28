@@ -64,7 +64,7 @@ const removeFromCart = async(req,res)=>{
     try{
 
         const userId = req.userId;
-        await Cart.findOneAndUpdate(
+        const userCart = await Cart.findOneAndUpdate(
             {userId: userId},
             {$pull: {
                 cartItems:{
@@ -74,7 +74,8 @@ const removeFromCart = async(req,res)=>{
             },
             {new: true}
         )
-        res.status(200).json({message:'updated'})
+        res.status(200).json({message:'updated', userCart: userCart});
+
     }catch(err){
         console.log('removeFromCart',err);
         return res.status(400).json({message:'cant update the cart'})

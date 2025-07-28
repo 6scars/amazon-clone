@@ -14,7 +14,6 @@ let userCart;
 
 export function mainHTML(data){
     userCart = data
-    console.log(userCart)
     displayCartSummary();
     iteringAddEventOnClickDelete();
     displayQuantityInHeader();
@@ -142,13 +141,14 @@ function deliveryOptionHTML(productsItem, userCart){
 }
 
 
-export function iteringAddEventOnClickDelete(){
-    document.querySelector('.js-order-summary').addEventListener('click',(event)=>{
+export  function iteringAddEventOnClickDelete(){
+    document.querySelector('.js-order-summary').addEventListener('click',async (event)=>{
         if(event.target.classList.contains('js-delete-link')){
             let dataIdElement = event.target.dataset.deleteId;
 
-            cart.removeFromCart(dataIdElement);
-            removeFromCart(dataIdElement);
+            // cart.removeFromCart(dataIdElement);
+            const data = await removeFromCart(dataIdElement);
+            userCart = data.userCart;
             displayCartSummary();
             displayQuantityInHeader();
             renderPaymentSummary();

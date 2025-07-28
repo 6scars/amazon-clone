@@ -72,7 +72,8 @@ export async function removeFromCart(productId){
                 productId
             })
         })
-        return await response.json();
+        if(response.status < 400) return await response.json();    
+        throw 'didnt remove from cart'
     }catch(err){
         console.log('removeFromCart error: ',err)
     }
