@@ -294,8 +294,15 @@ export  function iteringAddEventOnClickDate (){
     document.querySelectorAll('.js-delivery-option').forEach((element)=>{
         element.addEventListener('click',async()=>{
             const {productId, deliveryOptionId} = element.dataset;
-            // cart.updateDeliveryOption(productId, deliveryOptionId);
-            userCart = await changeDeliveryOption(productId, deliveryOptionId);
+            // 
+
+            if(isLogedIn){
+                userCart = await changeDeliveryOption(productId, deliveryOptionId);
+            }else{
+                cart.updateDeliveryOption(productId, deliveryOptionId);
+                userCart = cart;
+            }
+            
 
             displayCartSummary();
             reattachEventListeners();
