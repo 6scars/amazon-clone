@@ -7,7 +7,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import {deliveryOptions, getDeliveryOptionOb, calculateDeliveryDate} from '../../data/deliveryOptions.js';
 import {renderPaymentSummary} from './paymentSummary.js';
 import {renderCheckoutHeader} from './checkoutHeader.js';
-import {removeFromCart, changeDeliveryOption} from '../utils/fetch.js'
+import {removeFromCart, changeDeliveryOption, changeQuantityCart} from '../utils/fetch.js'
 isSatSun();
 let userCart;
 
@@ -29,7 +29,7 @@ export function displayCartSummary(){
     
     let cartSummaryHTML='';
     
-
+    console.log(userCart)
     userCart.cartItems.forEach((cartItem)=>{
         products.forEach((productsItem)=>{
             if(cartItem.productId === productsItem.id){
@@ -191,22 +191,19 @@ function iteringAddEventOnClickSaveQuantity(){
     };
 
 
-    function saveQuantity(event){
+    async function saveQuantity(event){
         let saveLinkItem = event.currentTarget;
         let prodId = saveLinkItem.dataset.saveProdId;
-        let containerElement = document.querySelector(`.js-cart-item-container-${prodId}`);
-        let inputElement = containerElement.querySelector('.js-quantity-input');
-
-
-
+        let inputElement = document.querySelector(`.js-cart-item-container-${prodId}`).querySelector('.js-quantity-input');
         const quantity = Number(inputElement.value);
-
         if(!(quantity > 0  && quantity < 1000))
             return;
 
-        cart.overwriteQuantityInCart(prodId, containerElement, quantity);
-         renderCheckoutHeader(userCart);
-        renderPaymentSummary();
+        // cart.overwriteQuantityInCart(prodId, containerElement, quantity);
+        userCart = await changeQuantityCart(prodId, quantity);
+        console.log()
+        renderCheckoutHeader(userCart);
+        renderPaymentSummary(userCart);
         
     };
 
@@ -240,9 +237,9 @@ function iteringAddEventOnClickSaveQuantity(){
                 if(!(quantity > 0  && quantity < 1000))
                     return;
 
-                overwriteQuantityInCart(prodId, containerElement, quantity);
+                cart.overwriteQuantityInCart(prodId, containerElement, quantity);
                 renderCheckoutHeader(userCart);
-                renderPaymentSummary();
+                renderPaymentSummary(userCart);
             };
     };
 
@@ -271,16 +268,16 @@ function reattachEventListeners() {
 }
 
     
-export function iteringAddEventOnClickDate(){
+export  function iteringAddEventOnClickDate (){
     document.querySelectorAll('.js-delivery-option').forEach((element)=>{
-        element.addEventListener('click',()=>{
+        element.addEventListener('click',async()=>{
             const {productId, deliveryOptionId} = element.dataset;
-            cart.updateDeliveryOption(productId, deliveryOptionId);
-            changeDeliveryOption(productId, deliveryOptionId)
+            // cart.updateDeliveryOption(productId, deliveryOptionId);
+            userCart= await changeDeliveryOption(productId, deliveryOptionId);
 
             displayCartSummary();
             reattachEventListeners();
-            renderPaymentSummary();
+            renderPaymentSummary(userCart);
         });
     });
 };

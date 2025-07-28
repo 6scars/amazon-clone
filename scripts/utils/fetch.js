@@ -94,10 +94,30 @@ export async function changeDeliveryOption(productId, deliveryOptionId){
                 }
             )
         });
-
-        return await response.json();
+        const data = await response.json();
+        return data.userCart;
     }catch(e){
         console.log('changeDeliveryOption error',e);
     }
 
+}
+
+export async function changeQuantityCart(productId, quantity){
+    try{
+        const response = await fetch('http://localhost:3000/changeQuantityInCart',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            },
+            body: JSON.stringify({
+                productId,
+                quantity
+            })
+        })
+        const data = await response.json()
+        return data.userCart;
+    }catch(e){
+        console.log('changeQuantityCart error:',e)
+    }
 }

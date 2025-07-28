@@ -111,3 +111,8 @@ export function updateCartQuantity(userCart = null){
     }
       return quantityCart;
   };
+
+export function updateCartQuantityLink(quant, prodId, userCart = null,){
+    const el = document.querySelector(`.js-cart-item-container-${prodId}`)
+    console.log(el);
+}

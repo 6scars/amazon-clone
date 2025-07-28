@@ -32,10 +32,11 @@ router.get('/userData',utils.authenticateToken, utils.takingUserData, viewContro
 router.get('/veryfication-token',utils.authenticateToken, viewController.verifyToken);
 
 //for cart
-router.post('/send-product-to-cart',utils.authenticateToken, cartController.addToCart)
+router.post('/send-product-to-cart',utils.authenticateToken, cartController.addToCart);
 router.get('/userDataCart',utils.authenticateToken, cartController.readFromCart );
-router.post('/removeProdItemCart', utils.authenticateToken, cartController.removeFromCart)
-router.post('/changeDeliveryOption', utils.authenticateToken, cartController.changeDeliveryOption)
+router.post('/removeProdItemCart', utils.authenticateToken, cartController.removeFromCart);
+router.post('/changeDeliveryOption', utils.authenticateToken, cartController.changeDeliveryOption);
+router.post('/changeQuantityInCart', utils.authenticateToken, cartController.changeQuantityInCart);
 
 module.exports = router;
 

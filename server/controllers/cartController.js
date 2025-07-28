@@ -60,7 +60,7 @@ const readFromCart = async (req,res)=>{
     res.json(userCart);
 }
 
-const removeFromCart = async(req,res)=>{
+const removeFromCart = async (req,res)=>{
     try{
 
         const userId = req.userId;
@@ -83,7 +83,7 @@ const removeFromCart = async(req,res)=>{
 
 }
 
-const changeDeliveryOption = async(req,res)=>{
+const changeDeliveryOption = async (req,res)=>{
     try{
         const userId = req.userId;
         const productId = req.body.productId;
@@ -107,6 +107,39 @@ const changeDeliveryOption = async(req,res)=>{
     }
 }
 
+const changeQuantityInCart = async (req,res)=>{
+    try{
+        const userId = req.userId;
+        const productId = req.body.productId;
+        const newQuant = req.body.quantity;
+        
+        const userCart = await Cart.findOneAndUpdate(
+            {
+                userId: userId,
+                'cartItems.productId': productId
+            },
+            {
+                $set:
+                {
+                    'cartItems.$.quantity': newQuant
+                }
+            },
+            {
+                new:true
+            }
+        )
+        if(!userCart){
+            return res.status(400).json({message:'Can\'t find such user or product in cart'})
+        }
+        return res.status(200).json({message:'changing done', userCart});
+    }catch(e){
+        return res.status(500).json({message:'server error changingQuantityInCart:',e});    
+    }
+    
+
+    
+}
+
 
 
 module.exports = {
@@ -114,5 +147,6 @@ module.exports = {
     createCart,
     readFromCart,
     removeFromCart,
-    changeDeliveryOption
+    changeDeliveryOption,
+    changeQuantityInCart
 }
