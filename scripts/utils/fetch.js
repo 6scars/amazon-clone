@@ -62,13 +62,16 @@ export async function takeUserData() {
 
         if (!respond.ok) {
             const errorData = await respond.json();
+            
             throw new Error(errorData.message || 'takeUserData fetch error');
         }
+
+
 
         const data = await respond.json();
         return data.user
     } catch (err) {
-        console.error('takingUserData failed',err);
+        console.warn('takingUserData failed',err);
     }
 }
 
@@ -81,8 +84,13 @@ export async function takeUserCart(){
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             }
         })
-        const data = await response.json();
-        return data;
+        if(response.ok){
+            return await response.json();
+        }else{
+            return null
+        }
+        
+
     }catch(err){
         console.log('error takeUserData',err);
     }

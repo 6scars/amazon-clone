@@ -1,6 +1,7 @@
 import {takeUserData, takeUserCart} from '../utils/fetch.js';
 import {countQuantity} from '../../data/logedCart.js'
 import {searchBar} from './amazonSearchBar.js'
+import {cart} from '../../data/cart-class.js';
 let isLogedIn = false;
 let haveCart = false;
 let userData;
@@ -14,6 +15,7 @@ verifying();
 export async function verifying(){
   userData = await takeUserData();
   userDataCart = await takeUserCart();
+  console.log(userDataCart)
   if(userData){
     isLogedIn = true;
   }
@@ -189,14 +191,12 @@ function renderHeaderHTML(){
 
           <a class="cart-link header-link" href="checkout.html">
             <img class="cart-icon" src="images/icons/cart-icon.png">
-            <div class="cart-quantity js-cart-quantity"> ${haveCart ? countQuantity(userDataCart.cartItems): '0'}</div>
+            <div class="cart-quantity js-cart-quantity"> ${haveCart ? countQuantity(userDataCart.cartItems) : cart.quantityInCart()}</div>
             <div class="cart-text">Cart</div>
           </a>
         </div>
       `;
-
-
-
+console.log(haveCart)
   function displayHeader(){
       document.querySelector('.amazon-header').innerHTML=headerHTML;
   }

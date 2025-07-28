@@ -20,6 +20,8 @@ async function loadPage() {
 
     if(userToken){
       isLogedIn = true;
+    }else{
+      cart.loadFromStorage();
     }
 
   } catch (e) {
@@ -93,11 +95,6 @@ export async function loadProductsGrid(){
 
 
 
-
-
-
-
-
     function addEventToButtons(){
     document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
       button.addEventListener('click', async ()=>{
@@ -108,7 +105,12 @@ export async function loadProductsGrid(){
 
         // cart.addToCart(productId, quantSelected);
         //i need to be loged in to add to cart at this moment
-        await sendProductToCart(productId, quantSelected);
+        if(isLogedIn){
+          await sendProductToCart(productId, quantSelected);
+        }else{
+          cart.addToCart(productId,quantSelected)
+        }
+        
 
         const cartQuantity = parseInt(document.querySelector('.js-cart-quantity').innerHTML)+1;
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
