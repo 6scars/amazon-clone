@@ -1,16 +1,23 @@
-import {cart} from '../../data/cart-class.js';
+import {cart as cartLocal} from '../../data/cart-class.js';
 import {loopCartProd} from '../../data/products.js';
 import {getDeliveryOptionOb} from '../../data/deliveryOptions.js';
 import formatCurrency from '../utils/money.js'
 import {addOrder} from '../../data/orders.js'
+import {updateCartQuantity} from '../utils/quantity.js'
 
+let userCart;
 
+export function renderPaymentSummary(data){
+  if(data && Array.isArray(data.cartItems)){
+    userCart = data;
+  }else{
+    userCart = cartLocal
+  }
 
-export function renderPaymentSummary(){
     let productPriceCents = 0;
     let deliveryPriceCents = 0;
     
-    cart.cartItems.forEach((cartItem)=>{
+    userCart.cartItems.forEach((cartItem)=>{
         //for price
         const product = loopCartProd(cartItem.productId)
         productPriceCents += product.priceCents * cartItem.quantity;
@@ -27,15 +34,13 @@ export function renderPaymentSummary(){
 
 
 
-
-
     let summaryHTML = `
         <div class="payment-summary-title">
             Order Summary
           </div>
 
           <div class="payment-summary-row">
-            <div>Items (${cart.quantityInCart()}):</div>
+            <div>Items (${updateCartQuantity(userCart)}):</div>
             <div class="payment-summary-money">$${formatCurrency(productPriceCents)}</div>
           </div>
 

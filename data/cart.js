@@ -96,10 +96,18 @@ export function updateDeliveryOption(productId, deliveryOptionId){
   
 };
 
-export function quantityInCart(){
-  let quantity =0;
-  cart.forEach((item)=>{
-    quantity += item.quantity;
-  })
-  return quantity;
-}
+export function updateCartQuantity(userCart = null){
+    let quantityCart=0;
+
+    if(userCart && Array.isArray(userCart.cartItems)){
+      console.log(userCart.cartItems)
+      quantityCart = userCart.cartItems.reduce((sum,item)=>
+      sum+= item.quantity,  0
+      )
+    }else{
+      cart.cartItems.forEach((cartItem)=>{
+        quantityCart += cartItem.quantity;
+      });
+    }
+      return quantityCart;
+  };

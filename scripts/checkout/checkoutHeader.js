@@ -5,7 +5,6 @@ export function renderCheckoutHeader(userCart){
     if(userCart){
         header = `Checkout (<a class="return-to-home-link js-return-to-home-link"
             href="amazon.html">${updateCartQuantity(userCart)} items</a>)`
-            console.log('render: ',updateCartQuantity(userCart) )
     }else{
         header = `Checkout (<a class="return-to-home-link js-return-to-home-link"
             href="amazon.html">${cart.quantityInCart()} items</a>)`

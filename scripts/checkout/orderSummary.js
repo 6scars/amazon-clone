@@ -150,7 +150,7 @@ export  function iteringAddEventOnClickDelete(){
             userCart = data.userCart;
             displayCartSummary();
             renderCheckoutHeader(userCart);
-            renderPaymentSummary();
+            renderPaymentSummary(userCart);
             reattachEventListeners();
 
         }
@@ -167,7 +167,7 @@ function iteringAddEventOnClickUpdateQuantity(){
         let updateItem = event.currentTarget;
         let itemContainer= document.querySelector(`.js-cart-item-container-${updateItem.dataset.productIdQuantity}`);
         itemContainer.classList.add('is-editing-quantity');
-        console.log(itemContainer);
+        
     }
 
     updateElements.forEach((updateItem)=>{
@@ -196,7 +196,7 @@ function iteringAddEventOnClickSaveQuantity(){
         let prodId = saveLinkItem.dataset.saveProdId;
         let containerElement = document.querySelector(`.js-cart-item-container-${prodId}`);
         let inputElement = containerElement.querySelector('.js-quantity-input');
-        console.log(prodId);
+
 
 
         const quantity = Number(inputElement.value);
@@ -230,7 +230,6 @@ function iteringAddEventOnClickSaveQuantity(){
     };
 
     function saveQuantityOnEnter(event){
-        console.log(event.key)
             if(event.key === "Enter"){
                 let saveInputItem = event.currentTarget;
                 let prodId = saveInputItem.dataset.productIdInput;

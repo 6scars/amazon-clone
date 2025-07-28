@@ -4,7 +4,6 @@ export function updateCartQuantity(userCart){
     let quantityCart=0;
 
     if(userCart && Array.isArray(userCart.cartItems)){
-      console.log(userCart.cartItems)
       quantityCart = userCart.cartItems.reduce((sum,item)=>
       sum+= item.quantity,  0
       )
