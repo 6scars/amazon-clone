@@ -2,16 +2,18 @@ import {cart as cartLocal} from '../../data/cart-class.js';
 import {loopCartProd} from '../../data/products.js';
 import {getDeliveryOptionOb} from '../../data/deliveryOptions.js';
 import formatCurrency from '../utils/money.js'
-import {addOrder} from '../../data/orders.js'
+import {order} from '../../data/orders.js'
 import {updateCartQuantity} from '../utils/quantity.js'
 
 let userCart;
+let isLogedIn = false;
 
-export function renderPaymentSummary(data){
-  if(data && Array.isArray(data.cartItems)){
+export function renderPaymentSummary(data = null, isLogedIn = false){
+  if(isLogedIn){
     userCart = data;
+    isLogedIn = true;
   }else{
-    userCart = cartLocal
+    userCart = data
   }
 
     let productPriceCents = 0;
@@ -70,8 +72,8 @@ export function renderPaymentSummary(data){
           `
 
     document.querySelector('.js-payment-summary').innerHTML = summaryHTML;
-
-    document.querySelector('.js-place-order')
+    if(isLogedIn){
+          document.querySelector('.js-place-order')
       .addEventListener('click',async ()=>{
         try{
           const response = await fetch('http://localhost:3000/send-order',{
@@ -80,7 +82,7 @@ export function renderPaymentSummary(data){
               'Content-Type':'application/json'
             },
             body: JSON.stringify({
-              body: cart.cartItems
+              body: userCart.cartItems
             })
           });
           const order = await response.json();
@@ -90,9 +92,27 @@ export function renderPaymentSummary(data){
         }catch(error){
           console.log('error');
         }
-
-        
-
       });
-
+    }else{
+      document.querySelector('.js-place-order')
+      .addEventListener('click',async ()=>{
+        console.log(userCart.cartItems)
+        try{
+          const response = await fetch('http://localhost:3000/sendOrderAnonymous',{
+            method: 'POST',
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+              body: userCart.cartItems
+            })
+          });
+          const norder = await response.json();
+          console.log(norder);
+          order.addOrder(norder);
+        }catch(error){
+          console.log('error: ',error);
+        }
+    })
+  }
 }
