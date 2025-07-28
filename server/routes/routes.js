@@ -33,7 +33,8 @@ router.get('/veryfication-token',utils.authenticateToken, viewController.verifyT
 
 //for cart
 router.post('/send-product-to-cart',utils.authenticateToken, cartController.addToCart)
-router.get('/userDataCart',utils.authenticateToken,cartController.readFromCart );
+router.get('/userDataCart',utils.authenticateToken, cartController.readFromCart );
+router.post('/removeProdItemCart', utils.authenticateToken, cartController.removeFromCart)
 
 module.exports = router;
 

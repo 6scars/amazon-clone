@@ -3,24 +3,29 @@ import {renderPaymentSummary} from './checkout/paymentSummary.js';
 import {renderCheckoutHeader} from './checkout/checkoutHeader.js';
 import {loadProductsFetch} from '../data/products.js'
 import {loadCartFetch} from '../data/cart-class.js'
+import {takeUserCart} from './utils/fetch.js';
 //import '../data/cart-class.js';
 // import '../data/backend-practice.js';
 
+let userCart;
 
 async function loadPage(){
     try{
-        await Promise.all([
+        const [_ , __ , data] = await Promise.all([
             loadProductsFetch(),
-            loadCartFetch()
+            loadCartFetch(),
+            takeUserCart()
         ]);
+        userCart = data;
     }catch(error){
         console.log('error loadPage');
     }
 
+    
+    
 
 
-
-    mainHTML();
+    mainHTML(userCart);
     renderPaymentSummary();
     renderCheckoutHeader();
 

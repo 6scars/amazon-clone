@@ -59,3 +59,21 @@ export async function takeUserCart(){
         console.log('error takeUserData',err);
     }
 }
+
+export async function removeFromCart(productId){
+    try{
+        const response = await fetch('http://localhost:3000/removeProdItemCart',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            },
+            body:JSON.stringify({
+                productId
+            })
+        })
+        return await response.json();
+    }catch(err){
+        console.log('removeFromCart error: ',err)
+    }
+}

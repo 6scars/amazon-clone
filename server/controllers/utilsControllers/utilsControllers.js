@@ -24,11 +24,13 @@ const authenticateToken = (req,res,next)=>{
     
     const authHeader = req.headers.authorization;
     
+    
     if(!authHeader || !authHeader.startsWith('Bearer ')){
         return res.status(401).json({ message: 'No header or not valid header Authorization' });
     }
     const usedToken = authHeader?.split(' ')[1];
 
+    console.log(usedToken);
     if(!usedToken)
         return res.status(401).json({message:'There is not token'});
 

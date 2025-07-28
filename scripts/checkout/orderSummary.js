@@ -7,14 +7,32 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import {deliveryOptions, getDeliveryOptionOb, calculateDeliveryDate} from '../../data/deliveryOptions.js';
 import {renderPaymentSummary} from './paymentSummary.js';
 import {renderCheckoutHeader} from './checkoutHeader.js';
+import {removeFromCart} from '../utils/fetch.js'
 isSatSun();
+let userCart;
+
+
+export function mainHTML(data){
+    userCart = data
+    console.log(userCart)
+    displayCartSummary();
+    iteringAddEventOnClickDelete();
+    displayQuantityInHeader();
+    iteringAddEventOnClickUpdateQuantity();
+    iteringAddEventOnClickSaveQuantity();
+    iteringAddEventOnClickDate()
+    
+};
+
+
+
 
 export function displayCartSummary(){
     
     let cartSummaryHTML='';
     
 
-    cart.cartItems.forEach((cartItem)=>{
+    userCart.cartItems.forEach((cartItem)=>{
         products.forEach((productsItem)=>{
             if(cartItem.productId === productsItem.id){
                 
@@ -89,7 +107,7 @@ export function displayCartSummary(){
 
 };
 
-function deliveryOptionHTML(productsItem,cart){
+function deliveryOptionHTML(productsItem, userCart){
     let html = ''
     deliveryOptions.forEach((option)=>{
         const dateString = calculateDeliveryDate(option).format('dddd, MMMM, D');
@@ -97,7 +115,7 @@ function deliveryOptionHTML(productsItem,cart){
 
         const price = `$${formatCurrency(option.priceCents)}` || 'FREE';
 
-        const  isChecked = option.id === cart.deliveryOptionId;
+        const  isChecked = option.id === userCart.deliveryOptionId;
         
         
         
@@ -130,6 +148,7 @@ export function iteringAddEventOnClickDelete(){
             let dataIdElement = event.target.dataset.deleteId;
 
             cart.removeFromCart(dataIdElement);
+            removeFromCart(dataIdElement);
             displayCartSummary();
             displayQuantityInHeader();
             renderPaymentSummary();
@@ -229,13 +248,6 @@ function iteringAddEventOnClickSaveQuantity(){
             };
     };
 
-    
-
-
-    
-
-
-
 
 
     saveLink.forEach((saveLinkItem)=>{
@@ -250,6 +262,7 @@ function iteringAddEventOnClickSaveQuantity(){
     });
     
 };
+
 
 
 
@@ -279,20 +292,6 @@ export function iteringAddEventOnClickDate(){
         });
     });
 };
-
-
-
-export function mainHTML(){
-    displayCartSummary();
-    iteringAddEventOnClickDelete();
-    displayQuantityInHeader();
-    iteringAddEventOnClickUpdateQuantity();
-    iteringAddEventOnClickSaveQuantity();
-    iteringAddEventOnClickDate()
-    
-};
-
-
 
 
 

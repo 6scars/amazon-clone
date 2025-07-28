@@ -60,13 +60,33 @@ const readFromCart = async (req,res)=>{
     res.json(userCart);
 }
 
+const removeFromCart = async(req,res)=>{
+    try{
 
-// const addToCart = async (req,res) =>{
+        const userId = req.userId;
+        await Cart.findOneAndUpdate(
+            {userId: userId},
+            {$pull: {
+                cartItems:{
+                    productId: req.body.productId
+                    }
+                }
+            },
+            {new: true}
+        )
+        res.status(200).json({message:'updated'})
+    }catch(err){
+        console.log('removeFromCart',err);
+        return res.status(400).json({message:'cant update the cart'})
+    }
 
-// }
+}
+
+
 
 module.exports = {
     addToCart,
     createCart,
-    readFromCart
+    readFromCart,
+    removeFromCart
 }

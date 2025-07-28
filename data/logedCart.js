@@ -8,4 +8,6 @@ export function countQuantity(cartItems) {
   }, 0);
 }
 
-
+export function removeFromCart(){
+  
+}
