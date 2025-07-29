@@ -1,6 +1,8 @@
 
 const dayjs = require('dayjs');
 const Orders = require('../models/modelOrders.js')
+const mongoose = require('mongoose');
+const cartController = require('./cartController.js');
 const jwt = require('jsonwebtoken');
 
 const Products = require('../models/modelProduct.js');
@@ -8,22 +10,24 @@ const {calculateDeliveryDate, getDeliveryOptionOb} = require('../utils/utils.js'
 
 
 const sendOrder = async (req,res) =>{
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try{
         const order = req.body;
         const userId = req.userId;
-        console.log(userId)
         const today = dayjs();
+
         let totalPrice = 0;
         const tax = 1.10;
         let prodObiects = [];
-        // const deliveryObiect = getDeliveryOptionOb(order.body.deliveryOptionId);
-        // const estimatedDeliveryTime = calculateDeliveryDate(deliveryObiect) 
 
-        //this is like for all products
         for(const item of order.body){
             const deliveryOb = getDeliveryOptionOb(item.deliveryOptionId);
             const estimatedDelivery = calculateDeliveryDate(deliveryOb);
             const productData = await Products.findOne({id: item.productId});
+            if(!productData){
+                throw new Error(`Product not found: ${item.productId}`);
+            }
 
             const extra = {
                 productId: productData.id,
@@ -35,18 +39,25 @@ const sendOrder = async (req,res) =>{
             prodObiects.push(extra);
 
         }
-            const nOrder = new Orders({
-                userId: userId,
-                orderTime: today.toISOString(),
-                totalCostCents: totalPrice,
-                products: prodObiects
-            });
 
-            await nOrder.save();
-            res.json(nOrder);
-        }catch(error){
-            console.log('app.js post /send-order',error);
-        }
+        const nOrder = new Orders({
+            userId,
+            orderTime: today.toISOString(),
+            totalCostCents: totalPrice,
+            products: prodObiects
+        });
+
+        await nOrder.save({session});
+        await cartController.deleteCart(userId, session);
+        await session.commitTransaction();
+        session.endSession();
+        res.json(nOrder);
+    }catch(error){
+        await session.abortTransaction();
+        session.endSession();
+        console.error('Post /send-order error',error);
+        res.status(500).json({message:'Order processing failed'});
+    }
     
 }
 

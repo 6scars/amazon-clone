@@ -140,7 +140,9 @@ const changeQuantityInCart = async (req,res)=>{
     
 }
 
-
+const deleteCart = async(userId, session)=>{
+    await Cart.deleteOne({userId},{session})
+}
 
 module.exports = {
     addToCart,
@@ -148,5 +150,6 @@ module.exports = {
     readFromCart,
     removeFromCart,
     changeDeliveryOption,
-    changeQuantityInCart
+    changeQuantityInCart,
+    deleteCart
 }
