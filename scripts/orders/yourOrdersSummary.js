@@ -1,9 +1,20 @@
-import {orders} from  '../../data/orders.js';
+import {order, sendOrderLogedIn} from  '../../data/orders.js';
 import {formatCurrency} from '../utils/money.js'
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {loopCartProd as loopOrderProd} from '../../data/products.js'
-console.log(orders);
-export function loadOrdersSummary(){
+
+let isLogedIn = false;
+let orders;
+export async function loadOrdersSummary(data = false){
+    isLogedIn = data;
+
+    if(isLogedIn){
+        orders = await sendOrderLogedIn();
+    }else{
+        orders = order.loadFromStorage();
+    }
+    console.log(orders)
+
     let wholeHTML = '';
     orders.forEach((order)=>{
         const OrderPlaced = dayjs(order.orderTime).format('YYYY.MM.DD HH:mm');

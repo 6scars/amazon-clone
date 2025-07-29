@@ -44,7 +44,8 @@ export async function sendOrderLogedIn(userCart){
           const response = await fetch('http://localhost:3000/send-order',{
             method: 'POST',
             headers:{
-              'Content-Type':'application/json'
+              'Content-Type':'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             },
             body: JSON.stringify({
               body: userCart.cartItems
@@ -52,8 +53,9 @@ export async function sendOrderLogedIn(userCart){
           });
           const order = await response.json();
           window.location.href = 'orders.html';
+          return order;
         }catch(error){
-          console.log('error');
+          console.log('didn\'t send the order try again later');
         }
 }
 

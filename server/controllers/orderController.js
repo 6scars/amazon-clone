@@ -10,6 +10,8 @@ const {calculateDeliveryDate, getDeliveryOptionOb} = require('../utils/utils.js'
 const sendOrder = async (req,res) =>{
     try{
         const order = req.body;
+        const userId = req.userId;
+        console.log(userId)
         const today = dayjs();
         let totalPrice = 0;
         const tax = 1.10;
@@ -34,6 +36,7 @@ const sendOrder = async (req,res) =>{
 
         }
             const nOrder = new Orders({
+                userId: userId,
                 orderTime: today.toISOString(),
                 totalCostCents: totalPrice,
                 products: prodObiects

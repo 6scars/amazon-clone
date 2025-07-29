@@ -27,7 +27,7 @@ router.get('/checkout',(req,res)=>{
 //ROUTES
 router.post('/login', loginController.loginUsser);
 router.post('/register',registerController.validation, registerController.registerUser, cartController.createCart);
-router.post('/send-order',orderController.sendOrder);
+router.post('/send-order',utils.authenticateToken, orderController.sendOrder);
 router.post('/sendOrderAnonymous',orderController.sendOrderAnonim);
 router.get('/userData',utils.authenticateToken, utils.takingUserData, viewController.userData);
 router.get('/veryfication-token',utils.authenticateToken, viewController.verifyToken);

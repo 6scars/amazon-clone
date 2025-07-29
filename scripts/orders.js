@@ -1,13 +1,22 @@
 import {loadOrdersSummary} from './orders/yourOrdersSummary.js';
-import {orders} from '../data/orders.js';
+// import {order as orders} from '../data/orders.js';
 import {loadProductsFetch} from '../data/products.js';
 import {updateCartQuantity} from '../scripts/utils/quantity.js'
 import {cart} from '../data/cart-class.js'
 import {updateCartQuantityHeader} from './utils/quantity.js'
+import {UserVeryficationToken} from './utils/fetch.js'
+let isLogedIn = false;
 
 async function load(){
-    await loadProductsFetch();
-    loadOrdersSummary();
+    const [_, userToken] =await Promise.all([
+        loadProductsFetch(),
+        UserVeryficationToken()
+    ]);
+    if(userToken){
+        isLogedIn = true
+    }
+
+    loadOrdersSummary(isLogedIn);
     updateCartQuantityHeader();
 
     addEventOnClick();
