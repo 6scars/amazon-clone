@@ -13,8 +13,9 @@ let userCart;
 let isLogedIn = false;
 
 
-export function mainHTML(data = null, isLogedIn = false){
-    userCart = data
+export function mainHTML(data = null, loged = false){
+    userCart = data;
+    isLogedIn = loged;
     displayCartSummary();
     iteringAddEventOnClickDelete();
     iteringAddEventOnClickUpdateQuantity();
@@ -294,8 +295,7 @@ export  function iteringAddEventOnClickDate (){
     document.querySelectorAll('.js-delivery-option').forEach((element)=>{
         element.addEventListener('click',async()=>{
             const {productId, deliveryOptionId} = element.dataset;
-            // 
-
+            console.log(isLogedIn);
             if(isLogedIn){
                 userCart = await changeDeliveryOption(productId, deliveryOptionId);
             }else{

@@ -20,7 +20,6 @@ async function loadPage(){
         ]);
         if(!data){ 
             userCart = cart;
-            
         }else{
             isLogedIn = true;
             userCart = data;
