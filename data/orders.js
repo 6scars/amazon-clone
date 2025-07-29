@@ -4,20 +4,21 @@ class Order {
     ordersItems;
 
     constructor(Key){
-        this.ordeKey = Key;
+        this.orderKey = Key;
+        this.ordersItems = this.loadFromStorage(Key);
     }
     
 
     addOrder(order){
         this.ordersItems.unshift(order);
-        saveToStorage();
+        this.saveToStorage();
     }
 
     loadFromStorage(){
-        JSON.parse(localStorage.getItem(Key)) || [];
+        return JSON.parse(localStorage.getItem(this.orderKey)) || [];
     }
     saveToStorage(){
-        localStorage.setItem(orderKey, JSON.stringify(orders));
+        localStorage.setItem(this.orderKey, JSON.stringify(this.ordersItems));
     }
 
 
@@ -35,4 +36,42 @@ class Order {
 
 }
 
-export let order = new Order;
+export let order = new Order('orders');
+
+
+export async function sendOrderLogedIn(userCart){
+    try{
+          const response = await fetch('http://localhost:3000/send-order',{
+            method: 'POST',
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+              body: userCart.cartItems
+            })
+          });
+          const order = await response.json();
+          window.location.href = 'orders.html';
+        }catch(error){
+          console.log('error');
+        }
+}
+
+export async function sendOrderNotLogedIn(userCart){
+        try{
+          const response = await fetch('http://localhost:3000/sendOrderAnonymous',{
+            method: 'POST',
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+              body: userCart.cartItems
+            })
+          });
+          const norder = await response.json();
+          order.addOrder(norder);
+          window.location.href = 'orders.html';
+        }catch(error){
+          console.log('error: ',error);
+        }
+}
