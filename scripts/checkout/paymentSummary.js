@@ -1,4 +1,4 @@
-import {cart as cartLocal} from '../../data/cart-class.js';
+import {cart} from '../../data/cart-class.js';
 import {loopCartProd} from '../../data/products.js';
 import {getDeliveryOptionOb} from '../../data/deliveryOptions.js';
 import formatCurrency from '../utils/money.js'
@@ -75,12 +75,24 @@ export function renderPaymentSummary(data = null, isLogedIn = false){
     if(isLogedIn){
           document.querySelector('.js-place-order')
       .addEventListener('click',async ()=>{
-        await sendOrderLogedIn(userCart);
+        try{
+          await sendOrderLogedIn(userCart);
+          cart.removeCart();
+        }catch(e){
+          console.log('sendOrderLogedIn error paymentSummary:',e);
+        }
+        
       });
     }else{
       document.querySelector('.js-place-order')
       .addEventListener('click',async ()=>{
-        await sendOrderNotLogedIn(userCart);
+        try{
+          await sendOrderNotLogedIn(userCart);
+          cart.removeCart();
+        }catch(e){
+          console.log('sendOrderLogedIn error paymentSummary:',e);
+        }
+        
     })
   }
 }

@@ -20,6 +20,7 @@ class Order {
     saveToStorage(){
         localStorage.setItem(this.orderKey, JSON.stringify(this.ordersItems));
     }
+    
 
 
     loopOrders(id){

@@ -66,12 +66,15 @@ class Cart{
       };
 
 
-      saveToStorage(){
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
-        //cart = JSON.parse(localStorage.getItem('cart'));
+    saveToStorage(){
+      localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+      //cart = JSON.parse(localStorage.getItem('cart'));
     
     };
 
+    removeCart(){
+      localStorage.removeItem(this.localStorageKey);
+    }
 
 
     overwriteQuantityInCart(prodId, inputElement, quantity){
