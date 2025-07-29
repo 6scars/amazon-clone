@@ -90,7 +90,24 @@ const sendOrderAnonim = async (req,res) =>{
     
 }
 
+
+const takeUserOrders = async(req,res)=>{
+    try{
+        const userId = req.userId;
+        const userOrders = await Orders.find({userId: userId})
+        if(userOrders){
+            return res.status(201).json({userOrders})
+        }else{
+            return res.status(400).json({message:'didn\'t found the user'})
+        }
+    }catch(e){
+        console.log('takeUserOrders error', e)
+        return res.stauts(500).json({message:'internal status error',e})
+    }
+}
+
 module.exports = {
     sendOrder,
-    sendOrderAnonim
+    sendOrderAnonim,
+    takeUserOrders
 }

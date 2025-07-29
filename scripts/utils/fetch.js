@@ -41,7 +41,6 @@ export async function UserVeryficationToken(){
         }
 
         const data = await respond.json();
-        console.log(data)
         return data;
     }catch(err){
         console.log('authorization Token error:',err);

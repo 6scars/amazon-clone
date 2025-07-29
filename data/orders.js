@@ -77,3 +77,23 @@ export async function sendOrderNotLogedIn(userCart){
           console.log('error: ',error);
         }
 }
+
+export async function getUserOrders(){
+  try{
+    const response = await fetch('http://localhost:3000/takeUserOrders',{
+      method:'GET',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+      }
+    });
+    const data = await response.json()
+    if(response.ok){
+      return data.userOrders;
+    }else{
+      return 'getuUserOrders function error'
+    }
+  }catch(e){
+    console.error('didnt find userOrders');
+  }
+}
