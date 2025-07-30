@@ -54,6 +54,7 @@ export async function loadOrdersSummary(data = false){
 
 function details(list){
     let HTML='';
+    console.log('list', list)
     list.products.forEach((orderPro)=>{ 
         let product = loopOrderProd(orderPro.productId);
         let deliveryTime = dayjs(orderPro.estimatedDeliveryTime).format('YYYY.MM.DD');
@@ -79,7 +80,7 @@ function details(list){
                     </div>
 
                     <div class="product-actions">
-                        <a href="tracking.html?orderId=${list.id}&productId=${product.id}">
+                        <a href="tracking.html?orderId=${list._id}&productId=${product.id}">
                             <button class="track-package-button button-secondary">
                                 Track package
                             </button>

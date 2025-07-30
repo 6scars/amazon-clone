@@ -24,11 +24,13 @@ class Order {
 
 
     loopOrders(id){
-        const founded = this.ordersItems.find(order => order.id === id);
+        const founded = this.ordersItems.find(order => order._id === id);
+        console.log(founded)
         return founded || 'none'
     }
     getArrayProductsOrders(orderId,productId){
-        const arrayProducts = loopOrders(orderId).products;
+        const arrayProducts = this.loopOrders(orderId).products;
+        
         const a = arrayProducts.find(p => p.productId === productId)
 
         return a || 'none'

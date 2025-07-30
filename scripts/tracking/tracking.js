@@ -1,5 +1,5 @@
 import {loopCartProd as loopProd} from '../../data/products.js';
-import {loopOrders, getArrayProductsOrders} from '../../data/orders.js';
+import {order} from '../../data/orders.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
 
@@ -7,7 +7,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 const url = new URL(window.location.href);
 const orderId = url.searchParams.get('orderId');
 const productId = url.searchParams.get('productId');
-const arrayProducts = getArrayProductsOrders(orderId, productId);
+const arrayProducts = order.getArrayProductsOrders(orderId, productId);
 
 
 
@@ -61,7 +61,7 @@ export function displaySummary(){
 }
 
 export function greenProgress(){
-    const orderTime = dayjs(loopOrders(orderId).orderTime);
+    const orderTime = dayjs(order.loopOrders(orderId).orderTime);
     const deliveryTime = dayjs(arrayProducts.estimatedDeliveryTime);
     const today = dayjs();
 
