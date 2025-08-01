@@ -84,7 +84,8 @@ export async function takeUserCart(){
             }
         })
         if(response.ok){
-            return await response.json();
+            const data = await response.json();
+            return data
         }else{
             return null
         }

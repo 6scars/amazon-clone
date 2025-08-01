@@ -15,7 +15,6 @@ verifying();
 export async function verifying(){
   userData = await takeUserData();
   userDataCart = await takeUserCart();
-  console.log(userDataCart)
   if(userData){
     isLogedIn = true;
   }
@@ -196,7 +195,6 @@ function renderHeaderHTML(){
           </a>
         </div>
       `;
-console.log(haveCart)
   function displayHeader(){
       document.querySelector('.amazon-header').innerHTML=headerHTML;
   }

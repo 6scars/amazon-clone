@@ -42,8 +42,19 @@ class Order {
 export let order = new Order('orders');
 
 
-export async function sendOrderLogedIn(userCart){
+export async function sendOrderLogedIn(userCart,formTarget){
     try{
+          const form = new FormData(formTarget);
+          const firstName = form.get('firstName');
+          const lastName = form.get('lastName');
+          const phoneNumber = form.get('phoneNumber');
+          const email = form.get('email');
+          const adress = form.get('adress');
+          const postalCode = form.get('postalCode');
+          const city = form.get('city');
+          const country = form.get('country');
+          const note = form.get('note');
+
           const response = await fetch('http://localhost:3000/send-order',{
             method: 'POST',
             headers:{
@@ -51,26 +62,59 @@ export async function sendOrderLogedIn(userCart){
               'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             },
             body: JSON.stringify({
-              body: userCart.cartItems
+              userCart,
+               userData:{
+                firstName,
+                lastName,
+                phoneNumber,
+                email,
+                adress,
+                postalCode,
+                city,
+                country,
+                note,
+              }
             })
           });
+          
           const order = await response.json();
           window.location.href = 'orders.html';
           return order;
         }catch(error){
-          console.log('didn\'t send the order try again later');
+          console.log('didn\'t send the order try again later',error);
         }
 }
 
-export async function sendOrderNotLogedIn(userCart){
+export async function sendOrderNotLogedIn(userCart,formTarget){
         try{
+          const form = new FormData(formTarget);
+          const firstName = form.get('firstName');
+          const lastName = form.get('lastName');
+          const phoneNumber = form.get('phoneNumber');
+          const email = form.get('email');
+          const adress = form.get('adress');
+          const postalCode = form.get('postalCode');
+          const city = form.get('city');
+          const country = form.get('country');
+          const note = form.get('note');
           const response = await fetch('http://localhost:3000/sendOrderAnonymous',{
             method: 'POST',
             headers:{
               'Content-Type':'application/json'
             },
             body: JSON.stringify({
-              body: userCart.cartItems
+              userCart,
+              userData:{
+                firstName,
+                lastName,
+                phoneNumber,
+                email,
+                adress,
+                postalCode ,
+                city,
+                country,
+                note,
+              }
             })
           });
           const norder = await response.json();

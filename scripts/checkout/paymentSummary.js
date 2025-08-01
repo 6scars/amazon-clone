@@ -76,8 +76,9 @@ export function renderPaymentSummary(data = null, isLogedIn = false){
           document.querySelector('.js-place-order')
       .addEventListener('click',async ()=>{
         try{
-          await sendOrderLogedIn(userCart);
-          cart.removeCart();
+          // await sendOrderLogedIn(userCart);
+          // cart.removeCart();
+          window.location.href = "/placeYourOrder.html"
         }catch(e){
           console.log('sendOrderLogedIn error paymentSummary:',e);
         }
@@ -87,8 +88,9 @@ export function renderPaymentSummary(data = null, isLogedIn = false){
       document.querySelector('.js-place-order')
       .addEventListener('click',async ()=>{
         try{
-          await sendOrderNotLogedIn(userCart);
-          cart.removeCart();
+          // await sendOrderNotLogedIn(userCart);
+          // cart.removeCart();
+          window.location.href = "/placeYourOrder.html"
         }catch(e){
           console.log('sendOrderLogedIn error paymentSummary:',e);
         }

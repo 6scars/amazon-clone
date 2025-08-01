@@ -13,7 +13,6 @@ export async function loadOrdersSummary(data = false){
     }else{
         orders = order.loadFromStorage();
     }
-    console.log(orders)
 
     let wholeHTML = '';
     orders.forEach((order)=>{
@@ -54,7 +53,6 @@ export async function loadOrdersSummary(data = false){
 
 function details(list){
     let HTML='';
-    console.log('list', list)
     list.products.forEach((orderPro)=>{ 
         let product = loopOrderProd(orderPro.productId);
         let deliveryTime = dayjs(orderPro.estimatedDeliveryTime).format('YYYY.MM.DD');

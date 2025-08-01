@@ -13,15 +13,17 @@ const sendOrder = async (req,res) =>{
     const session = await mongoose.startSession();
     session.startTransaction();
     try{
-        const order = req.body;
+        const userCart = req.body.userCart;
         const userId = req.userId;
+        const userData = req.body.userData;
         const today = dayjs();
+        console.log(userCart)
 
         let totalPrice = 0;
         const tax = 1.10;
         let prodObiects = [];
 
-        for(const item of order.body){
+        for(const item of userCart.cartItems){
             const deliveryOb = getDeliveryOptionOb(item.deliveryOptionId);
             const estimatedDelivery = calculateDeliveryDate(deliveryOb);
             const productData = await Products.findOne({id: item.productId});
@@ -44,7 +46,16 @@ const sendOrder = async (req,res) =>{
             userId,
             orderTime: today.toISOString(),
             totalCostCents: totalPrice,
-            products: prodObiects
+            products: prodObiects,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            phoneNumber:userData.phoneNumber,
+            email: userData.email,
+            adress: userData.adress,
+            postalCode: userData.postalCode,
+            city: userData.city,
+            country: userData.country,
+            note: userData.note
         });
 
         await nOrder.save({session});
@@ -63,7 +74,7 @@ const sendOrder = async (req,res) =>{
 
 const sendOrderAnonim = async (req,res) =>{
     try{
-        console.log(req.body);
+        const userData = req.body.userData;
         const order = req.body;
         const today = dayjs();
         let totalPrice = 0;
@@ -73,7 +84,7 @@ const sendOrderAnonim = async (req,res) =>{
         // const estimatedDeliveryTime = calculateDeliveryDate(deliveryObiect) 
 
         //this is like for all products
-        for(const item of order.body){
+        for(const item of order.userCart){
             const deliveryOb = getDeliveryOptionOb(item.deliveryOptionId);
             const estimatedDelivery = calculateDeliveryDate(deliveryOb);
             const productData = await Products.findOne({id: item.productId});
@@ -88,12 +99,22 @@ const sendOrderAnonim = async (req,res) =>{
             prodObiects.push(extra);
 
         }
-            const nOrder = new Orders({
-                orderTime: today.toISOString(),
-                totalCostCents: totalPrice,
-                products: prodObiects
-            });
-            
+        const nOrder = new Orders({
+            orderTime: today.toISOString(),
+            totalCostCents: totalPrice,
+            products: prodObiects,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            phoneNumber:userData.phoneNumber,
+            email: userData.email,
+            adress: userData.adress,
+            postalCode: userData.postalCode,
+            city: userData.city,
+            country: userData.country,
+            note: userData.note
+        });
+            await nOrder.save()
+            console.log(nOrder)
             return res.json(nOrder);
         }catch(error){
             console.log('app.js post /send-order',error);

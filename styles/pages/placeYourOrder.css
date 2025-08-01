@@ -1,0 +1,83 @@
+body {
+  font-family: 'Amazon Ember', Arial, sans-serif;
+  background-color: #f3f3f3;
+  padding: 30px;
+  color: #111;
+}
+
+.container {
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin: auto;
+  border: 1px solid #ddd;
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #111;
+  font-weight: 500;
+}
+
+.container label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.container input,
+.container textarea,
+.container select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #d5d9d9;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.container input:focus,
+.container textarea:focus,
+.container select:focus {
+  outline: none;
+  border-color: #e77600;
+  box-shadow: 0 0 3px 1px rgba(231, 118, 0, 0.3);
+}
+
+.container textarea {
+  resize: vertical;
+}
+
+.container .checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.container .checkbox-group input {
+  width: auto;
+  margin-right: 10px;
+}
+
+.container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #f0c14b;
+  border: 1px solid #a88734;
+  color: #111;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.container button:hover {
+  background-color: #e2b33b;
+  border-color: #a88734;
+}

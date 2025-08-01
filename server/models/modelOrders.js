@@ -10,7 +10,20 @@ const orders = new Schema({
         quantity: Number,
         estimatedDeliveryTime: String,
         variation: {type: mongoose.Schema.Types.Mixed, default: null}
-    }]
+    }],
+    firstName: String,
+    lastName: String,
+    phoneNumber:String,
+    email: String,
+    adress: String,
+    postalCode: String,
+    city: String,
+    country: String,
+    note: {
+       type: String,
+       maxlength:320
+    }
+
 })
 
 const Orders = mongoose.model('Orders', orders);
