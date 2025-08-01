@@ -1,7 +1,5 @@
 import {cart} from '../data/cart-class.js';
 import {products, loadProductsFetch} from '../data/products.js';
-import {formatCurrency} from './utils/money.js';
-import {updateCartQuantity,updateCartQuantityHeader} from './utils/quantity.js';
 import {searchedProducts} from './amazon/amazonSearchBar.js'
 import {sendProductToCart, UserVeryficationToken} from './utils/fetch.js';
 
@@ -17,13 +15,11 @@ async function loadPage() {
 
     ]);
     loadProductsGrid();
-
     if(userToken){
       isLogedIn = true;
     }else{
       cart.loadFromStorage();
     }
-
   } catch (e) {
     console.log('loadPage error', e);
   }

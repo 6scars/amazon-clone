@@ -1,6 +1,6 @@
 import {sendOrderLogedIn, sendOrderNotLogedIn} from '../data/orders.js'
 import {cart} from '../data/cart-class.js'
-import {takeUserData ,takeUserCart, UserVeryficationToken} from './utils/fetch.js'
+import {takeUserCart, UserVeryficationToken} from './utils/fetch.js'
 let isLogedIn = false;
 let userCart;
 async function mainFun(){
@@ -85,7 +85,6 @@ function sendOrderOnClick(){
             await sendOrderLogedIn(userCart, e.target);
         })
     }else{
-        console.log(form)
         form.addEventListener('submit',async (e)=>{
             e.preventDefault();
             await sendOrderNotLogedIn(cart.cartItems, e.target);

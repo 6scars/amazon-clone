@@ -5,8 +5,6 @@ import {renderCheckoutHeader} from './checkout/checkoutHeader.js';
 import {loadProductsFetch} from '../data/products.js'
 import {loadCartFetch} from '../data/cart-class.js'
 import {takeUserCart} from './utils/fetch.js';
-//import '../data/cart-class.js';
-// import '../data/backend-practice.js';
 
 let userCart;
 let isLogedIn = false;

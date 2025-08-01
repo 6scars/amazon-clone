@@ -3,7 +3,7 @@ const dayjs = require('dayjs');
 const Orders = require('../models/modelOrders.js')
 const mongoose = require('mongoose');
 const cartController = require('./cartController.js');
-const jwt = require('jsonwebtoken');
+const utilsController = require('./utilsControllers/utilsControllers.js')
 
 const Products = require('../models/modelProduct.js');
 const {calculateDeliveryDate, getDeliveryOptionOb} = require('../utils/utils.js');
@@ -17,7 +17,6 @@ const sendOrder = async (req,res) =>{
         const userId = req.userId;
         const userData = req.body.userData;
         const today = dayjs();
-        console.log(userCart)
 
         let totalPrice = 0;
         const tax = 1.10;
@@ -45,7 +44,7 @@ const sendOrder = async (req,res) =>{
         const nOrder = new Orders({
             userId,
             orderTime: today.toISOString(),
-            totalCostCents: totalPrice,
+            totalCostCents: utilsController.roundMoney(totalPrice),
             products: prodObiects,
             firstName: userData.firstName,
             lastName: userData.lastName,
@@ -80,8 +79,6 @@ const sendOrderAnonim = async (req,res) =>{
         let totalPrice = 0;
         const tax = 1.10;
         let prodObiects = [];
-        // const deliveryObiect = getDeliveryOptionOb(order.body.deliveryOptionId);
-        // const estimatedDeliveryTime = calculateDeliveryDate(deliveryObiect) 
 
         //this is like for all products
         for(const item of order.userCart){
@@ -101,7 +98,7 @@ const sendOrderAnonim = async (req,res) =>{
         }
         const nOrder = new Orders({
             orderTime: today.toISOString(),
-            totalCostCents: totalPrice,
+            totalCostCents: utilsController.roundMoney(totalPrice),
             products: prodObiects,
             firstName: userData.firstName,
             lastName: userData.lastName,

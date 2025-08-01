@@ -1,4 +1,4 @@
-import {order, sendOrderLogedIn, getUserOrders} from  '../../data/orders.js';
+import {order, getUserOrders} from  '../../data/orders.js';
 import {formatCurrency} from '../utils/money.js'
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {loopCartProd as loopOrderProd} from '../../data/products.js'

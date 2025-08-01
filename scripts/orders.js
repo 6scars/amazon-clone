@@ -1,7 +1,5 @@
 import {loadOrdersSummary} from './orders/yourOrdersSummary.js';
-// import {order as orders} from '../data/orders.js';
 import {loadProductsFetch} from '../data/products.js';
-import {updateCartQuantity} from '../scripts/utils/quantity.js'
 import {cart} from '../data/cart-class.js'
 import {updateCartQuantityHeader} from './utils/quantity.js'
 import {UserVeryficationToken} from './utils/fetch.js'
