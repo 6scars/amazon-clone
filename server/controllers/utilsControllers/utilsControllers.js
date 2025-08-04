@@ -7,10 +7,11 @@ const takingUserData  = async(req, res, next) => {
     try {
         
         const userId = req.userId;
-        const user = await Users.findById(userId);
+        const user = await Users.findById(userId).select('-password -createdAt -updatedAt -__v');
         if (!user) {
             return res.status(401).json({ message: 'Didn\'t find such user, please log in and try again' });
         }
+
         req.userData = user;
         next();
     } catch (error) {
@@ -29,14 +30,12 @@ const authenticateToken = (req,res,next)=>{
         return res.status(401).json({ message: 'No header or not valid header Authorization' });
     }
     const usedToken = authHeader?.split(' ')[1];
-
-    console.log(usedToken);
+;
     if(!usedToken)
         return res.status(401).json({message:'There is not token'});
 
     try{
         const decoded = jwt.verify(usedToken, JWT_SECRET);
-         console.log(decoded)
         req.userId = decoded.userId;
         next();
     }catch(e){

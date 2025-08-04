@@ -12,7 +12,7 @@ const sendEmail = async () =>{
             subject: 'hello world',
             html: '<p>Congrats on sending your <strong> first email</strong>!</p>'
         })
-        console.log('WYSŁANEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
+        console.log('have Sended')
         console.log(result)
         return ({succes: true, result})
     }catch(err){

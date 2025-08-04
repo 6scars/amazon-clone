@@ -15,8 +15,10 @@ verifying();
 export async function verifying(){
   userData = await takeUserData();
   userDataCart = await takeUserCart();
+  
   if(userData){
     isLogedIn = true;
+    console.log(userData)
   }
     if(userDataCart){
     haveCart = true;
