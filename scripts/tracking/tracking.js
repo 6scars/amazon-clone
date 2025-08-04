@@ -1,19 +1,31 @@
 import {loopCartProd as loopProd} from '../../data/products.js';
-import {order} from '../../data/orders.js';
+import {order, getUserOrders} from '../../data/orders.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
-
-
 const url = new URL(window.location.href);
+const orderTime = url.searchParams.get('orderTime');
+const estimatedDeliveryTime = url.searchParams.get('estimatedDeliveryTime');
+const quantity = url.searchParams.get('quant');
+const image = url.searchParams.get('imageURL');
+const name = url.searchParams.get('productName')
 const orderId = url.searchParams.get('orderId');
 const productId = url.searchParams.get('productId');
-const arrayProducts = order.getArrayProductsOrders(orderId, productId);
+
+
+//ifyoulogedout
+// const arrayProducts = order.getArrayProductsOrders(orderId, productId);
 
 
 
-export function displaySummary(){
-    const product = loopProd(productId);
-    let deliveryTime = dayjs(arrayProducts.estimatedDeliveryTime).format('dddd, MMMM DD');
+export async function displaySummary(isLogedIn = false){
+    let product;
+    if(!isLogedIn){
+        product = loopProd(productId)
+    }else{
+        product = {productId, quantity, image, name};
+    }
+    
+    let deliveryTime = dayjs(estimatedDeliveryTime).format('dddd, MMMM DD');
 
 
    let temp= `
@@ -28,11 +40,11 @@ export function displaySummary(){
             </div>
 
             <div class="product-info">
-                ${product.name}
+                ${product.name} 
             </div>
 
             <div class="product-info">
-            Quantity: ${arrayProducts.quantity}
+            Quantity: ${quantity}
             </div>
 
             <img class="product-image" src=" ${product.image}">
@@ -61,15 +73,21 @@ export function displaySummary(){
 }
 
 export function greenProgress(){
-    const orderTime = dayjs(order.loopOrders(orderId).orderTime);
-    const deliveryTime = dayjs(arrayProducts.estimatedDeliveryTime);
+    const orderTimeParsed = dayjs(orderTime)
+    const deliveryTimeParsed  = dayjs(estimatedDeliveryTime);
     const today = dayjs();
 
     let width = (
-        today.diff(orderTime) / deliveryTime.diff(orderTime)
+        today.diff(orderTimeParsed) / deliveryTimeParsed.diff(orderTimeParsed)
     ) * 100;
-    document.querySelector('.js-progress-bar').style.width =`${width}%`;
 
+    console.log(orderTime)
+    console.log(estimatedDeliveryTime)
+    console.log(orderTimeParsed)
+    console.log(deliveryTimeParsed)
+    document.querySelector('.js-progress-bar').style.width =`${width}%`;
+    if (width < 0) width = 0;
+    if (width > 100) width = 100;
     statusOfDelivery(width);
 }
 
@@ -84,5 +102,5 @@ function statusOfDelivery(width){
         labels[2].style.color =`green`;
     }
 
-    // console.log(Array.from(labels).find(div=>div.textContent.toLowerCase().includes('preparing')));
+    console.log(Array.from(labels).find(div=>div.textContent.toLowerCase().includes('preparing')));
 }

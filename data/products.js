@@ -4,7 +4,6 @@ import {loadProductsGrid} from '../scripts/amazon.js';
 
 export function loopCartProd(productId){
     let matchingProduct;
-
         products.forEach((productItem)=>{
             if(productId === productItem.id){
                 matchingProduct = productItem;

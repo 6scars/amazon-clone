@@ -13,6 +13,7 @@ export async function loadOrdersSummary(data = false){
     }else{
         orders = order.loadFromStorage();
     }
+    console.log(orders)
 
     let wholeHTML = '';
     orders.forEach((order)=>{
@@ -38,7 +39,7 @@ export async function loadOrdersSummary(data = false){
                                     <div>${order._id}</div>
                                 </div>
                             </div>
-                        ${details(order)}
+                        ${details(order,OrderPlaced)}
 
                     </div>
                 </div>
@@ -51,13 +52,14 @@ export async function loadOrdersSummary(data = false){
 }
 
 
-function details(list){
+function details(list,OrderPlaced){
     let HTML='';
     list.products.forEach((orderPro)=>{ 
+        console.log(orderPro)
         let product = loopOrderProd(orderPro.productId);
         let deliveryTime = dayjs(orderPro.estimatedDeliveryTime).format('YYYY.MM.DD');
         let temp= `
-        <div class="order-details-grid">
+        <div class="order-details-grid"> 
             <div class="product-image-container">
                 <img src="${product.image}">
             </div>         
@@ -78,7 +80,7 @@ function details(list){
                     </div>
 
                     <div class="product-actions">
-                        <a href="tracking.html?orderId=${list._id}&productId=${product.id}">
+                        <a href="tracking.html?orderId=${list._id}&productId=${product.id}&imageURL=${product.image}&productName=${product.name}&quant=${orderPro.quantity}&orderTime=${OrderPlaced}&estimatedDeliveryTime=${orderPro.estimatedDeliveryTime}">
                             <button class="track-package-button button-secondary">
                                 Track package
                             </button>
