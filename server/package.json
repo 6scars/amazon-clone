@@ -20,7 +20,9 @@
   "description": "amazon server",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"node app.js",
+    "dev" : "nodemon app.js",
+    "seed": "node controllers/utilsControllers/fetchProductsToBase.js"
   },
   "author": "",
   "license": "ISC"
