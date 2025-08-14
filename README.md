@@ -1,7 +1,7 @@
 # Amazon Clone PL
 
 Projekt stworzony w HTML, CSS, JavaScript i Node.js, inspirowany wyglądem Amazona.  
-Bazuje na szablonie HTML/CSS/JavaScript autorstwa **SuperSimpleDev**.
+Bazuje na szablonie HTML/CSS/JavaScript autorstwa **SuperSimpleDev** .
 
 **Uwaga:** Projekt nie przyjmuje płatności i nie wysyła prawdziwych produktów.  
 Ma charakter wyłącznie edukacyjny.
@@ -68,7 +68,7 @@ a cały proces przebiega tak, jak w prawdziwych sklepach internetowych (np. appl
 
 ## Autorzy
 - Marcin Michoń
-- SuperSimpleDev - autor oryginalnego szablonu
+- SuperSimpleDev [Link: https://www.youtube.com/c/SuperSimpleDev] - autor oryginalnego szablonu
 
 
 ## Licencja
